@@ -1,5 +1,4 @@
 ---
-# Leave the homepage title empty to use the site title
 title: ''
 summary: ''
 date: 2022-10-24
@@ -36,13 +35,23 @@ sections:
       columns: '1'
 
   - block: collection
+    id: publications
+    content:
+      title: Publications
+      filters:
+        folders:
+          - publications
+    design:
+      view: citation
+
+  - block: collection
     id: news
     content:
       title: Recent News
       subtitle: ''
       text: ''
       page_type: blog
-      count: 5
+      count: 10
       filters:
         author: ''
         category: ''
