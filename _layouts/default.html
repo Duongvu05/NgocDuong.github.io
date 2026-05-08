@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="{{ site.locale | default: 'en-US' }}">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description"
+    content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+  <link type="application/atom+xml" rel="alternate" href="{{ site.url }}/feed.xml" title="{{ site.title }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8JRJ8K97FS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-8JRJ8K97FS');
+  </script>
+</head>
+
+<body>
+  <!-- Header Bar -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="{{ '/' | relative_url }}" class="header-brand">
+          <span class="header-name">{{ site.owner_name }}</span>
+        </a>
+        <a href="https://phenikaa-uni.edu.vn" target="_blank" rel="noopener" class="header-logo-link">
+          <img src="https://phenikaa-uni.edu.vn:3600/pu/en/modules/logoen.png" alt="Phenikaa University"
+            class="header-logo">
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="header-nav desktop-nav">
+        <a href="{{ '/' | relative_url }}" {% if page.url=='/' %}class="active" {% endif %}>About</a>
+        <a href="{{ '/publications/' | relative_url }}" {% if page.url contains '/publications' %}class="active" {%
+          endif %}>Publications</a>
+        <a href="{{ '/experience/' | relative_url }}" {% if page.url=='/experience/' %}class="active" {% endif
+          %}>Experience</a>
+        <a href="{{ '/blog/' | relative_url }}" {% if page.url contains '/blog' %}class="active" {% endif %}>Blogs</a>
+        <a href="{{ '/activities/' | relative_url }}" {% if page.url=='/activities/' %}class="active" {% endif
+          %}>Activities & Honors</a>
+      </nav>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <nav class="mobile-nav" aria-hidden="true">
+      <a href="{{ '/' | relative_url }}" {% if page.url=='/' %}class="active" {% endif %}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4M12 8h.01" />
+        </svg>
+        About
+      </a>
+      <a href="{{ '/publications/' | relative_url }}" {% if page.url contains '/publications' %}class="active" {% endif
+        %}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        </svg>
+        Publications
+      </a>
+      <a href="{{ '/experience/' | relative_url }}" {% if page.url=='/experience/' %}class="active" {% endif %}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+        </svg>
+        Experience
+      </a>
+      <a href="{{ '/blog/' | relative_url }}" {% if page.url contains '/blog' %}class="active" {% endif %}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="M12 20h9" />
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+        </svg>
+        Blogs
+      </a>
+      <a href="{{ '/activities/' | relative_url }}" {% if page.url=='/activities/' %}class="active" {% endif %}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+        Activities & Honors
+      </a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <div class="page-grid">
+      <!-- Left Sidebar -->
+      <aside class="sidebar">
+        {% include sidebar.html %}
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        {{ content }}
+      </main>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>© {{ 'now' | date: "%Y" }} {{ site.owner_name }}. All rights reserved.</p>
+    <p class="footer-updated">Last Updated: {{ 'now' | date: "%B %d, %Y" }}</p>
+    <div class="footer-visitor-map">
+      <script
+        type="text/javascript"
+        id="mapmyvisitors"
+        src="https://mapmyvisitors.com/map.js?d=AxpTCtiGpAvX5vazgj-DaQIuKnzMi47wZZiCh87QPmg&amp;cl=ffffff&amp;w=a"></script>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileNav = document.querySelector('.mobile-nav');
+
+    if (mobileToggle && mobileNav) {
+      mobileToggle.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('is-open');
+        mobileToggle.classList.toggle('is-active', isOpen);
+        mobileToggle.setAttribute('aria-expanded', isOpen);
+        mobileNav.setAttribute('aria-hidden', !isOpen);
+        document.body.classList.toggle('menu-open', isOpen);
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!mobileToggle.contains(e.target) && !mobileNav.contains(e.target)) {
+          mobileNav.classList.remove('is-open');
+          mobileToggle.classList.remove('is-active');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+          mobileNav.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('menu-open');
+        }
+      });
+    }
+  </script>
+
+  <style>
+    .footer-visitor-map {
+      margin: 12px auto 0;
+      width: min(220px, 85vw);
+      max-height: 100px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .footer-visitor-map iframe,
+    .footer-visitor-map canvas,
+    .footer-visitor-map svg,
+    .footer-visitor-map img,
+    .footer-visitor-map div {
+      max-width: 100% !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+  </style>
+</body>
+
+</html>

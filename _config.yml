@@ -1,0 +1,62 @@
+# Site Settings
+title: "Duong Ngoc Vu — AI Research"
+description: "Undergraduate Researcher | AI for Healthcare & Fraud Detection"
+url: "https://duongvu05.github.io"
+baseurl: "/NgocDuong.github.io"
+locale: "en-US"
+
+# Owner Information
+owner_name: "Duong Ngoc Vu"
+owner_affiliation: "National Economics University, Vietnam"
+owner_email: "duongvn.bai@st.neu.edu.vn"
+
+# Social Links
+socials:
+  orcid: "https://orcid.org/0009-0003-5917-4881"
+  github: "https://github.com/Duongvu05"
+  linkedin: "https://www.linkedin.com/in/ngoc-duong-47a058292/"
+  university: "https://en.neu.edu.vn"
+
+# Build Settings
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-paginate
+
+paginate: 8
+paginate_path: "/page:num/"
+
+collections:
+  publications:
+    output: true
+    permalink: /publications/:name/
+
+safe: true
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+defaults:
+  - scope:
+      path: ""
+      type: "publications"
+    values:
+      layout: "publication"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .bundle
+  - .sass-cache
+  - _site
+  - README.md

@@ -1,0 +1,61 @@
+<!-- Profile Section -->
+<div class="sidebar-section profile-section">
+  <div class="profile-avatar">
+    {% if site.owner_avatar %}
+    <img src="{{ site.owner_avatar | relative_url }}" alt="{{ site.owner_name }}">
+    {% else %}
+    <img src="{{ '/assets/img/profile.png' | relative_url }}" alt="{{ site.owner_name }}">
+    {% endif %}
+  </div>
+  <h2 class="profile-name">{{ site.owner_name }}</h2>
+  <p class="profile-email">
+    <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+      <path
+        d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
+    </svg>
+    cuong.vuongtuan@phenikaa-uni.edu.vn
+  </p>
+  <p class="profile-title">Research Assistant</p>
+  <p class="profile-affiliation">
+    <a href="{{ site.socials.university }}" target="_blank">Phenikaa University</a>
+  </p>
+  <p class="profile-school">School of Computing</p>
+</div>
+
+<!-- Quick Links Section -->
+<div class="sidebar-section">
+  <h3 class="section-title">Quick Links</h3>
+  <div class="quick-links-grid">
+    {% if site.socials.scholar %}
+    <a href="{{ site.socials.scholar }}" target="_blank" rel="noopener" class="quick-link">Google Scholar</a>
+    {% endif %}
+    {% if site.socials.github %}
+    <a href="{{ site.socials.github }}" target="_blank" rel="noopener" class="quick-link">GitHub</a>
+    {% endif %}
+    {% if site.socials.researchgate %}
+    <a href="{{ site.socials.researchgate }}" target="_blank" rel="noopener" class="quick-link">ResearchGate</a>
+    {% endif %}
+    {% if site.socials.orcid %}
+    <a href="{{ site.socials.orcid }}" target="_blank" rel="noopener" class="quick-link">ORCID</a>
+    {% endif %}
+    {% if site.socials.linkedin %}
+    <a href="{{ site.socials.linkedin }}" target="_blank" rel="noopener" class="quick-link">LinkedIn</a>
+    {% endif %}
+    {% if site.socials.x %}
+    <a href="{{ site.socials.x }}" target="_blank" rel="noopener" class="quick-link">X</a>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Recent News Section -->
+<div class="sidebar-section">
+  <h3 class="section-title">Recent News</h3>
+  <ul class="news-list">
+    {% for news in site.data.news limit:6 %}
+    <li class="news-item">
+      <span class="news-date">{{ news.date }}</span>
+      <span class="news-text">{{ news.content | markdownify | remove: '<p>' | remove: '</p>' }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</div>

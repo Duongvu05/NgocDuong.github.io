@@ -1,0 +1,152 @@
+---
+layout: default
+title: "Publications"
+permalink: /publications/
+---
+
+<div class="page-content">
+  <div class="page-header-inline">
+    <h1>Publications</h1>
+  </div>
+
+  <div class="filter-section">
+    <div class="filter-row">
+      <input type="text" id="pub-search" class="search-input" placeholder="Search publications...">
+      <select id="year-filter" class="filter-select">
+        <option value="">All Years</option>
+      </select>
+      <label class="filter-checkbox">
+        <input type="checkbox" id="co-first-filter"> Co-first author
+      </label>
+      <label class="filter-checkbox">
+        <input type="checkbox" id="corresponding-filter"> Corresponding author
+      </label>
+    </div>
+
+    <div class="filter-tags" id="tag-filters">
+      <button class="filter-tag active" data-tag="">All</button>
+    </div>
+  </div>
+
+  <div class="author-legend">
+    <sup>*</sup> Co-first author &nbsp;&nbsp; <sup>†</sup> Corresponding author
+  </div>
+
+  <div class="publications-list" id="publications-list">
+    {% comment %} Get all unique years and sort descending {% endcomment %}
+    {% assign all_years = site.publications | map: 'year' | uniq | sort | reverse %}
+    
+    {% for year in all_years %}
+      {% comment %} Get all publications for this year {% endcomment %}
+      {% assign year_pubs = site.publications | where: 'year', year %}
+      
+      {% comment %} Separate first-author and non-first-author publications {% endcomment %}
+      {% assign first_author_pubs = "" | split: "" %}
+      {% assign other_pubs = "" | split: "" %}
+      
+      {% for pub in year_pubs %}
+        {% assign first_author = pub.authors[0].name | default: pub.authors[0] %}
+        {% if first_author contains "Tuan-Cuong" or first_author contains "Cuong Vuong" %}
+          {% assign first_author_pubs = first_author_pubs | push: pub %}
+        {% else %}
+          {% assign other_pubs = other_pubs | push: pub %}
+        {% endif %}
+      {% endfor %}
+      
+      {% comment %} Sort both groups by title {% endcomment %}
+      {% assign first_author_pubs = first_author_pubs | sort: 'title' %}
+      {% assign other_pubs = other_pubs | sort: 'title' %}
+      
+      {% comment %} Display first-author publications first {% endcomment %}
+      {% for pub in first_author_pubs %}
+        {% include publication-card.html pub=pub %}
+      {% endfor %}
+      
+      {% comment %} Then display other publications {% endcomment %}
+      {% for pub in other_pubs %}
+        {% include publication-card.html pub=pub %}
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const publications = document.querySelectorAll('.pub-card');
+    const searchInput = document.getElementById('pub-search');
+    const yearFilter = document.getElementById('year-filter');
+    const tagFilters = document.getElementById('tag-filters');
+
+    // Collect unique years and tags
+    const years = new Set();
+    const tags = new Set();
+
+    publications.forEach(pub => {
+      const year = pub.dataset.year;
+      const pubTags = pub.dataset.tags ? pub.dataset.tags.split(',') : [];
+
+      if (year) years.add(year);
+      pubTags.forEach(tag => { if (tag.trim()) tags.add(tag.trim()); });
+    });
+
+    // Populate year filter
+    [...years].sort().reverse().forEach(year => {
+      const option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      yearFilter.appendChild(option);
+    });
+
+    // Populate tag filters
+    [...tags].sort().forEach(tag => {
+      const button = document.createElement('button');
+      button.className = 'filter-tag';
+      button.dataset.tag = tag;
+      button.textContent = tag;
+      tagFilters.appendChild(button);
+    });
+
+    // Filter function
+    function filterPublications() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const selectedYear = yearFilter.value;
+      const activeTag = document.querySelector('.filter-tag.active')?.dataset.tag || '';
+      const coFirstOnly = document.getElementById('co-first-filter').checked;
+      const correspondingOnly = document.getElementById('corresponding-filter').checked;
+
+      publications.forEach(pub => {
+        const title = pub.querySelector('.pub-title')?.textContent.toLowerCase() || '';
+        const authors = pub.querySelector('.pub-authors')?.textContent.toLowerCase() || '';
+        const venue = pub.querySelector('.pub-venue')?.textContent.toLowerCase() || '';
+        const year = pub.dataset.year;
+        const pubTags = pub.dataset.tags ? pub.dataset.tags.split(',') : [];
+        const authorsHtml = pub.querySelector('.pub-authors')?.innerHTML || '';
+
+        const matchesSearch = !searchTerm ||
+          title.includes(searchTerm) ||
+          authors.includes(searchTerm) ||
+          venue.includes(searchTerm);
+        const matchesYear = !selectedYear || year === selectedYear;
+        const matchesTag = !activeTag || pubTags.includes(activeTag);
+        const matchesCoFirst = !coFirstOnly || authorsHtml.includes('<sup>*</sup>');
+        const matchesCorresponding = !correspondingOnly || authorsHtml.includes('<sup>†</sup>');
+
+        pub.style.display = (matchesSearch && matchesYear && matchesTag && matchesCoFirst && matchesCorresponding) ? '' : 'none';
+      });
+    }
+
+    // Event listeners
+    searchInput.addEventListener('input', filterPublications);
+    yearFilter.addEventListener('change', filterPublications);
+    document.getElementById('co-first-filter').addEventListener('change', filterPublications);
+    document.getElementById('corresponding-filter').addEventListener('change', filterPublications);
+
+    tagFilters.addEventListener('click', function (e) {
+      if (e.target.classList.contains('filter-tag')) {
+        document.querySelectorAll('.filter-tag').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+        filterPublications();
+      }
+    });
+  });
+</script>
