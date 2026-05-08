@@ -5,3 +5,5 @@ node_modules/
 .DS_Store
 .venv/
 .agent/
+hugo_stats.json
+.hugo_build.lock
