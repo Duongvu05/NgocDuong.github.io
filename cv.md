@@ -7,24 +7,12 @@ permalink: /cv/
 <div class="page-header">
   <div class="container">
     <h1>{{ page.title }}</h1>
-    <p class="page-description">My complete academic and professional CV.</p>
+    <p class="page-description">Academic and professional CV of Duong Ngoc Vu.</p>
   </div>
 </div>
 
 <div class="container">
   <section class="section">
-    <object data="{{ '/assets/cv/cv.pdf' | relative_url }}" type="application/pdf" class="cv-embed">
-      <p>Your browser does not support embedded PDFs. Please <a href="{{ '/assets/cv/cv.pdf' | relative_url }}" download>download the CV</a> to view it.</p>
-    </object>
-
-    <div class="text-center">
-      <a href="{{ '/assets/cv/cv.pdf' | relative_url }}" class="btn btn-primary" download>
-        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
-          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-        </svg>
-        Download CV
-      </a>
-    </div>
+    <p>Please contact me at <a href="mailto:duongvn.bai@st.neu.edu.vn">duongvn.bai@st.neu.edu.vn</a> to request a copy of my CV.</p>
   </section>
 </div>
