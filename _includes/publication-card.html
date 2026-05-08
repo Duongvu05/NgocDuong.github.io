@@ -37,8 +37,7 @@
             {% for author in include.pub.authors %}
             {% assign author_name = author.name | default: author %}
             {% assign is_me = false %}
-            {% if author_name == site.owner_name or author_name contains "Tuan-Cuong" or author_name contains "Cuong
-            Vuong" %}
+            {% if author_name == site.owner_name or author.type == "self" %}
             {% assign is_me = true %}
             {% endif %}
 

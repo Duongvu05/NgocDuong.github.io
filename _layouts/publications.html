@@ -46,7 +46,7 @@ permalink: /publications/
       
       {% for pub in year_pubs %}
         {% assign first_author = pub.authors[0].name | default: pub.authors[0] %}
-        {% if first_author contains "Tuan-Cuong" or first_author contains "Cuong Vuong" %}
+        {% if pub.authors[0].type == "self" or first_author == site.owner_name %}
           {% assign first_author_pubs = first_author_pubs | push: pub %}
         {% else %}
           {% assign other_pubs = other_pubs | push: pub %}
