@@ -1,37 +1,25 @@
 ---
-# Display name
 title: Duong Ngoc Vu
-
-# Name pronunciation (optional)
 name_pronunciation: ''
-
-# Full name (for SEO)
 first_name: Duong Ngoc
 last_name: Vu
 
-# Status emoji
 status:
   icon: 🔬
 
-# Is this the primary user of the site?
 superuser: true
-
-# Highlight the author in author lists? (true/false)
 highlight_name: true
 
-# Role/position/tagline
 role: Undergraduate Researcher
 
-# Organizations/Affiliations to display in Biography blox
 organizations:
   - name: Business AI Lab, National Economics University
     url: https://bailab.vn/
 
-# Social network links
 profiles:
   - icon: at-symbol
     url: 'mailto:duongvn.bai@st.neu.edu.vn'
-    label: E-mail Me
+    label: E-mail
   - icon: brands/github
     url: https://github.com/Duongvu05
   - icon: brands/linkedin
@@ -52,7 +40,7 @@ education:
     date_start: 2023-09-01
     date_end: 2027-05-01
     summary: |
-      GPA: 3.7/4.0. Supervised by Dr. Thien Van Luong at Business AI Lab.
+      GPA: 3.7/4.0. Supervised by [Dr. Thien Van Luong](https://tvluong.wordpress.com/) at Business AI Lab.
   - area: High School Diploma — Social Sciences Gifted Program
     institution: Chu Van An National High School for the Gifted
     date_start: 2020-09-01
@@ -65,11 +53,10 @@ work:
     date_start: 2024-09-01
     date_end: ''
     summary: |
-      - Conduct research on multimodal AI for medical imaging and healthcare diagnosis.
-      - Develop novel attention-based deep learning frameworks and benchmark datasets.
+      - Research on multimodal AI for medical imaging and healthcare diagnosis.
+      - Develop attention-based deep learning frameworks and benchmark datasets.
       - Investigate financial fraud detection using structural temporal graph networks.
 
-# Skills
 skills:
   - name: Programming
     items:
@@ -92,7 +79,7 @@ skills:
         icon: devicon/tensorflow
       - name: Transformers / BERT / GPT
         percent: 80
-        icon: custom/huggingface
+        icon: devicon/python
 
 languages:
   - name: Vietnamese
@@ -104,7 +91,7 @@ awards:
   - title: First Prize — Faculty-level Scientific Research Competition
     awarder: Faculty of Data Science and Artificial Intelligence, NEU
     date: '2026-01-01'
-  - title: Outstanding Member of Business AI Lab
+  - title: Outstanding Member of Business AI Lab 2025
     awarder: Business AI Lab, NEU
     date: '2025-12-31'
   - title: Consolation Prize — Vietnam Student AI Olympics 2025 (Northern Region)
@@ -121,4 +108,4 @@ awards:
     date: '2025-09-01'
 ---
 
-I am a Researcher at the **Business AI Lab** (National Economics University), supervised by Dr. Luong Van Thien. My research focuses on **AI for Healthcare** (medical imaging, spine pathology diagnosis) and **Fraud Detection** (blockchain, graph neural networks).
+I am a Researcher at the **[Business AI Lab](https://bailab.vn/)** (National Economics University), supervised by [Dr. Thien Van Luong](https://tvluong.wordpress.com/). My research focuses on **AI for Healthcare** and **Fraud Detection**.
