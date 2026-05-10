@@ -94,6 +94,7 @@ permalink: /activities/
             <div class="service-tags" style="margin-top:0.5rem;">
               <span class="service-tag">FJCAI 2026</span>
               <span class="service-tag">CITA 2026</span>
+              <span class="service-tag">Journal of Science and Technology in Civil Engineering, HUCE 2026</span>
             </div>
           </div>
         </div>
