@@ -1,6 +1,6 @@
 ---
-title: Award for Outstanding Academic Achievement 2025–2026
+title: Outstanding Student Award – Faculty of Mathematical Economics, NEU 2025–2026
 date: 2026-05-25
 ---
 
-Received an award for **outstanding academic achievement** in the 2025–2026 academic year.
+Recognized as an **Outstanding Student** of the Faculty of Mathematical Economics, National Economics University (NEU) for the academic year 2025–2026.
