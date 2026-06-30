@@ -1,0 +1,133 @@
+---
+const interests = [
+  { icon: '🏥', label: 'AI for Healthcare' },
+  { icon: '🫀', label: 'Medical Imaging' },
+  { icon: '🔗', label: 'Fraud Detection' },
+  { icon: '🧠', label: 'Graph Neural Networks' },
+  { icon: '🤖', label: 'Multimodal Learning' },
+];
+
+const skills = [
+  { name: 'Python', level: 90 },
+  { name: 'PyTorch', level: 85 },
+  { name: 'Transformers', level: 80 },
+  { name: 'TensorFlow', level: 75 },
+  { name: 'C++', level: 70 },
+  { name: 'LaTeX', level: 85 },
+];
+---
+
+<section id="about" class="py-24 relative">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="mb-14" data-aos="fade-up">
+      <p class="text-blue-400 font-mono text-sm font-medium mb-2">// 01. about</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white">About Me</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+
+      <!-- Bio -->
+      <div data-aos="fade-up" data-aos-delay="100">
+        <div class="space-y-4 text-slate-400 leading-relaxed mb-8">
+          <p>
+            I am a Researcher at the
+            <a href="https://bailab.vn/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">
+              Business AI Lab
+            </a>
+            (National Economics University), supervised by
+            <a href="https://tvluong.wordpress.com/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">
+              Dr. Thien Van Luong</a>.
+            My research sits at the intersection of computer vision, deep learning, and real-world impact.
+          </p>
+          <p>
+            I build attention-based deep learning frameworks for spine pathology diagnosis on MRI data,
+            develop benchmark datasets for fair clinical AI evaluation, and investigate
+            graph-based fraud detection on blockchain transaction networks.
+          </p>
+          <p>
+            I'm also a
+            <span class="text-slate-200 font-medium">reviewer</span> for CITA 2026 & FJCAI 2026,
+            a <span class="text-slate-200 font-medium">mentor</span> in the Fulbright STEM Mentorship Program,
+            and a <span class="text-slate-200 font-medium">Teaching Assistant</span> for the Machine Learning course at NEU.
+          </p>
+        </div>
+
+        <!-- Research Interests -->
+        <div>
+          <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-3">Research Interests</h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              interests.map((i) => (
+                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm font-medium hover:bg-blue-500/20 hover:border-blue-500/40 transition-colors">
+                  <span>{i.icon}</span>
+                  {i.label}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div data-aos="fade-up" data-aos-delay="200">
+        <div class="bg-[#0f172a] border border-slate-800/60 rounded-2xl p-6">
+          <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-5">Technical Skills</h3>
+          <div class="space-y-4">
+            {
+              skills.map((s) => (
+                <div>
+                  <div class="flex justify-between text-sm mb-1.5">
+                    <span class="text-slate-300 font-medium">{s.name}</span>
+                    <span class="text-slate-500 font-mono">{s.level}%</span>
+                  </div>
+                  <div class="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div
+                      class="h-full rounded-full bg-gradient-to-r from-blue-600 to-blue-400 skill-bar"
+                      data-width={s.level}
+                      style="width: 0%;"
+                    ></div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <div class="mt-6 pt-6 border-t border-slate-800">
+            <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-3">Languages</h3>
+            <div class="flex gap-3">
+              <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/60 text-sm">
+                <span>🇻🇳</span>
+                <span class="text-slate-300">Vietnamese</span>
+                <span class="text-slate-500 text-xs">Native</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/60 text-sm">
+                <span>🇺🇸</span>
+                <span class="text-slate-300">English</span>
+                <span class="text-slate-500 text-xs">Professional</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-bar').forEach(bar => {
+          const w = bar.getAttribute('data-width');
+          bar.style.transition = 'width 1s ease-out';
+          bar.style.width = w + '%';
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const aboutSection = document.getElementById('about');
+  if (aboutSection) observer.observe(aboutSection);
+</script>

@@ -1,0 +1,132 @@
+---
+const items = [
+  // Awards
+  {
+    category: 'award',
+    icon: '🥇',
+    title: 'First Prize — Faculty-level Scientific Research Competition',
+    org: 'Faculty of Data Science and AI, NEU',
+    date: 'Jan 2026',
+    color: 'from-amber-500/15 to-yellow-500/5 border-amber-500/20 hover:border-amber-500/40',
+    badge: 'Award',
+    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+  },
+  {
+    category: 'award',
+    icon: '🌟',
+    title: 'Outstanding Student Award — Faculty of Mathematical Economics, NEU 2025-2026',
+    org: 'National Economics University',
+    date: 'May 2026',
+    color: 'from-amber-500/15 to-yellow-500/5 border-amber-500/20 hover:border-amber-500/40',
+    badge: 'Award',
+    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+  },
+  {
+    category: 'award',
+    icon: '🏆',
+    title: 'Outstanding Member of Business AI Lab',
+    org: 'Business AI Lab, NEU',
+    date: 'Dec 2025',
+    color: 'from-amber-500/15 to-yellow-500/5 border-amber-500/20 hover:border-amber-500/40',
+    badge: 'Award',
+    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+  },
+  {
+    category: 'award',
+    icon: '🎮',
+    title: 'Consolation Prize — Vietnam Student AI Olympics 2025 (Northern Region)',
+    org: 'Vietnam Student AI Olympics',
+    date: 'Dec 2025',
+    color: 'from-blue-500/15 to-indigo-500/5 border-blue-500/20 hover:border-blue-500/40',
+    badge: 'Competition',
+    badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  },
+  {
+    category: 'award',
+    icon: '🚀',
+    title: 'First Prize — Biztech Hackathon 2025 (A.ignite)',
+    org: 'Biztech Hackathon',
+    date: 'Mar 2025',
+    color: 'from-amber-500/15 to-yellow-500/5 border-amber-500/20 hover:border-amber-500/40',
+    badge: 'Award',
+    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+  },
+  // Professional
+  {
+    category: 'professional',
+    icon: '📝',
+    title: 'Reviewer — CITA 2026',
+    org: 'Conference on Information Technology and its Applications',
+    date: 'Feb 2026',
+    color: 'from-blue-500/15 to-cyan-500/5 border-blue-500/20 hover:border-blue-500/40',
+    badge: 'Reviewer',
+    badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  },
+  {
+    category: 'professional',
+    icon: '📝',
+    title: 'Reviewer — FJCAI 2026',
+    org: 'National Conference on Artificial Intelligence',
+    date: 'Jan 2026',
+    color: 'from-blue-500/15 to-cyan-500/5 border-blue-500/20 hover:border-blue-500/40',
+    badge: 'Reviewer',
+    badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  },
+  {
+    category: 'professional',
+    icon: '🎓',
+    title: 'Teaching Assistant — Machine Learning, NEU',
+    org: 'National Economics University',
+    date: 'Jan 2026',
+    color: 'from-violet-500/15 to-indigo-500/5 border-violet-500/20 hover:border-violet-500/40',
+    badge: 'Teaching',
+    badgeColor: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
+  },
+  {
+    category: 'professional',
+    icon: '🤝',
+    title: 'Mentor — Fulbright STEM Mentorship Program',
+    org: 'U.S. Embassy Hanoi',
+    date: 'Feb–May 2025',
+    color: 'from-sky-500/15 to-blue-500/5 border-sky-500/20 hover:border-sky-500/40',
+    badge: 'Mentorship',
+    badgeColor: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+  },
+];
+---
+
+<section id="awards" class="py-24 relative">
+  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent"></div>
+
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="mb-14" data-aos="fade-up">
+      <p class="text-blue-400 font-mono text-sm font-medium mb-2">// 05. activities</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white">Awards & Activities</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {
+        items.map((item, i) => (
+          <div
+            data-aos="fade-up"
+            data-aos-delay={Math.min(i * 60, 300)}
+            class={`relative p-5 rounded-xl bg-gradient-to-br ${item.color} border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg group`}
+          >
+            <div class="flex items-start justify-between gap-2 mb-3">
+              <span class="text-2xl">{item.icon}</span>
+              <span class={`text-xs px-2 py-0.5 rounded-full border font-medium ${item.badgeColor}`}>
+                {item.badge}
+              </span>
+            </div>
+            <h4 class="font-semibold text-white text-sm leading-snug mb-1.5 group-hover:text-blue-100 transition-colors">
+              {item.title}
+            </h4>
+            <p class="text-xs text-slate-500 mb-1">{item.org}</p>
+            <p class="text-xs text-slate-600 font-mono">{item.date}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
