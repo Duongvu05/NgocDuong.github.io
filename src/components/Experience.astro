@@ -5,8 +5,9 @@ const experience = [
     org: 'Business AI Lab, National Economics University',
     orgUrl: 'https://bailab.vn/',
     period: 'Sep 2024 – Present',
+    logo: '/NgocDuong.github.io/logo-bailab.png',
     logoText: 'BAI',
-    logoColor: 'bg-blue-600/20 border-blue-500/40 text-blue-300',
+    logoColor: 'bg-white/5 border-blue-500/30',
     bullets: [
       'Research on multimodal AI for medical imaging and healthcare diagnosis.',
       'Develop attention-based deep learning frameworks and benchmark datasets.',
@@ -20,8 +21,9 @@ const education = [
     title: 'BSc Data Science in Economics and Business',
     org: 'National Economics University',
     period: 'Sep 2023 – May 2027',
+    logo: '/NgocDuong.github.io/logo-neu.png',
     logoText: 'NEU',
-    logoColor: 'bg-indigo-600/20 border-indigo-500/40 text-indigo-300',
+    logoColor: 'bg-white/5 border-indigo-500/30',
     bullets: [
       'GPA: 3.7/4.0',
       'Supervised by Dr. Thien Van Luong at Business AI Lab.',
@@ -31,6 +33,7 @@ const education = [
     title: 'High School Diploma — Social Sciences Gifted Program',
     org: 'Chu Van An National High School for the Gifted',
     period: 'Sep 2020 – May 2023',
+    logo: null,
     logoText: 'CVA',
     logoColor: 'bg-indigo-600/20 border-indigo-500/40 text-indigo-300',
     bullets: [],
@@ -58,8 +61,11 @@ const education = [
           <div class="space-y-8">
             {experience.map((item, i) => (
               <div class="relative pl-14" data-aos="fade-up" data-aos-delay={i * 100}>
-                <div class={`absolute left-0 top-1 w-10 h-10 rounded-xl border-2 flex items-center justify-center shadow-lg ${item.logoColor}`}>
-                  <span class="text-xs font-bold font-mono">{item.logoText}</span>
+                <div class={`absolute left-0 top-1 w-10 h-10 rounded-xl border-2 flex items-center justify-center shadow-lg overflow-hidden ${item.logoColor}`}>
+                  {item.logo
+                    ? <img src={item.logo} alt={item.logoText} class="w-full h-full object-contain p-1" />
+                    : <span class="text-xs font-bold font-mono">{item.logoText}</span>
+                  }
                 </div>
                 <div class="bg-[#0f172a] border border-slate-800/60 rounded-xl p-5 hover:border-blue-500/20 transition-colors">
                   <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
@@ -90,10 +96,13 @@ const education = [
         <div class="relative">
           <div class="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/60 via-indigo-500/20 to-transparent"></div>
           <div class="space-y-8">
-            {education.map((item, i) => (
+            {education.map((item: typeof education[0], i) => (
               <div class="relative pl-14" data-aos="fade-up" data-aos-delay={i * 100}>
-                <div class={`absolute left-0 top-1 w-10 h-10 rounded-xl border-2 flex items-center justify-center shadow-lg ${item.logoColor}`}>
-                  <span class="text-xs font-bold font-mono">{item.logoText}</span>
+                <div class={`absolute left-0 top-1 w-10 h-10 rounded-xl border-2 flex items-center justify-center shadow-lg overflow-hidden ${item.logoColor}`}>
+                  {item.logo
+                    ? <img src={item.logo} alt={item.logoText} class="w-full h-full object-contain p-1" />
+                    : <span class="text-xs font-bold font-mono">{item.logoText}</span>
+                  }
                 </div>
                 <div class="bg-[#0f172a] border border-slate-800/60 rounded-xl p-5 hover:border-indigo-500/20 transition-colors">
                   <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
