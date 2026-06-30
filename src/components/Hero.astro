@@ -1,4 +1,5 @@
 ---
+const base = '/NgocDuong.github.io';
 const socials = [
   {
     label: 'GitHub',
@@ -21,161 +22,209 @@ const socials = [
     icon: `<svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 01-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.016-5.325 5.016h-3.919V7.416zm1.444 1.303v7.444h2.297c2.359 0 3.872-1.591 3.872-3.722 0-2.016-1.503-3.722-3.862-3.722h-2.307z"/></svg>`,
   },
 ];
+
+const stats = [
+  { value: '2', label: 'Publications', color: 'blue' },
+  { value: '3.7', label: 'GPA / 4.0', color: 'indigo' },
+  { value: '5+', label: 'Awards', color: 'amber' },
+];
 ---
 
-<section
-  id="hero"
-  class="relative min-h-screen flex items-center overflow-hidden pt-20"
->
-  <!-- Animated background -->
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden pt-20">
+
+  <!-- Background: starfield + glow -->
   <div class="absolute inset-0 -z-10">
-    <!-- Dot grid -->
-    <div
-      class="absolute inset-0"
-      style="background-image: radial-gradient(circle, rgba(148,163,184,0.07) 1px, transparent 1px); background-size: 28px 28px;"
-    ></div>
-    <!-- Blue glow orbs -->
-    <div
-      class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-blue-600/10 blur-[120px] animate-pulse"
-      style="animation-duration: 4s;"
-    ></div>
-    <div
-      class="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full bg-blue-500/8 blur-[100px] animate-pulse"
-      style="animation-duration: 6s; animation-delay: 1s;"
-    ></div>
-    <div
-      class="absolute top-2/3 left-1/2 w-64 h-64 rounded-full bg-indigo-600/8 blur-[80px] animate-pulse"
-      style="animation-duration: 5s; animation-delay: 2s;"
-    ></div>
+    <canvas id="starfield" class="absolute inset-0 w-full h-full"></canvas>
+    <div class="absolute top-1/4 left-1/3 w-[500px] h-[500px] rounded-full bg-blue-600/10 blur-[160px]"></div>
+    <div class="absolute bottom-1/4 right-1/3 w-80 h-80 rounded-full bg-indigo-600/8 blur-[120px]"></div>
   </div>
 
-  <div class="max-w-6xl mx-auto px-6 w-full">
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-6 items-center">
+  <div class="max-w-6xl mx-auto px-6 w-full py-16">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
 
       <!-- Left: Text -->
-      <div class="order-2 lg:order-1">
-        <div
-          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-medium mb-6 opacity-0 animate-fade-up"
-          style="animation-delay: 0.1s; animation-fill-mode: forwards;"
-        >
+      <div class="order-2 lg:order-1 space-y-6">
+        <!-- Status badge -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-medium opacity-0 animate-fade-up" style="animation-delay: 0.1s; animation-fill-mode: forwards;">
           <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
           Open to Research Collaboration
         </div>
 
-        <h1
-          class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 opacity-0 animate-fade-up"
-          style="animation-delay: 0.2s; animation-fill-mode: forwards;"
-        >
-          Hi, I'm<br />
-          <span
-            class="bg-gradient-to-r from-blue-400 via-blue-300 to-indigo-400 bg-clip-text text-transparent bg-300% animate-gradient-x"
-          >
-            Duong Ngoc Vu
-          </span>
-        </h1>
+        <!-- Name -->
+        <div class="opacity-0 animate-fade-up" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
+          <p class="text-slate-500 font-mono text-sm mb-1">Hi, I'm</p>
+          <h1 class="text-5xl sm:text-6xl font-extrabold leading-none tracking-tight">
+            <span class="bg-gradient-to-r from-white via-blue-100 to-blue-300 bg-clip-text text-transparent">Duong</span><br/>
+            <span class="bg-gradient-to-r from-blue-400 via-blue-300 to-indigo-400 bg-clip-text text-transparent bg-300% animate-gradient-x">Ngoc Vu</span>
+          </h1>
+        </div>
 
-        <p
-          class="text-lg text-slate-400 font-medium mb-2 opacity-0 animate-fade-up"
-          style="animation-delay: 0.3s; animation-fill-mode: forwards;"
-        >
-          Undergraduate Researcher ·
-          <a href="https://bailab.vn/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">
-            Business AI Lab, NEU
-          </a>
-        </p>
+        <!-- Role -->
+        <div class="opacity-0 animate-fade-up" style="animation-delay: 0.3s; animation-fill-mode: forwards;">
+          <p class="text-slate-400 text-base leading-relaxed">
+            Undergraduate Researcher at
+            <a href="https://bailab.vn/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">Business AI Lab, NEU</a>.
+            Working on <span class="text-slate-200 font-medium">AI for Healthcare</span> and
+            <span class="text-slate-200 font-medium">Graph-based Fraud Detection</span>
+            under <a href="https://tvluong.wordpress.com/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors">Dr. Thien Van Luong</a>.
+          </p>
+          <p class="text-slate-500 text-sm mt-2">
+            Seeking <span class="text-slate-400">RA / PhD positions</span> in ML, medical AI, or computer vision — starting 2027.
+          </p>
+        </div>
 
-        <p
-          class="text-slate-400 leading-relaxed max-w-lg mb-8 opacity-0 animate-fade-up"
-          style="animation-delay: 0.4s; animation-fill-mode: forwards;"
-        >
-          I research <span class="text-slate-200 font-medium">AI for Healthcare</span> and
-          <span class="text-slate-200 font-medium">Fraud Detection</span> - building multimodal
-          deep learning frameworks and graph neural networks under supervision of
-          <a href="https://tvluong.wordpress.com/" target="_blank" class="text-blue-400 hover:underline">
-            Dr. Thien Van Luong</a>.
-        </p>
+        <!-- Stats row -->
+        <div class="flex gap-6 opacity-0 animate-fade-up" style="animation-delay: 0.4s; animation-fill-mode: forwards;">
+          {stats.map(s => (
+            <div class="text-center">
+              <p class={`text-2xl font-extrabold font-mono ${s.color === 'amber' ? 'text-amber-400' : 'text-blue-400'}`}>{s.value}</p>
+              <p class="text-xs text-slate-500 mt-0.5">{s.label}</p>
+            </div>
+          ))}
+        </div>
 
-        <div
-          class="flex flex-wrap gap-3 mb-10 opacity-0 animate-fade-up"
-          style="animation-delay: 0.5s; animation-fill-mode: forwards;"
-        >
-          <a
-            href="/NgocDuong.github.io/research"
-            class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50 hover:-translate-y-0.5"
-          >
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-3 opacity-0 animate-fade-up" style="animation-delay: 0.5s; animation-fill-mode: forwards;">
+          <a href={`${base}/research`}
+            class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50 hover:-translate-y-0.5">
             View Research
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
             </svg>
           </a>
-          <a
-            href="/NgocDuong.github.io/contact"
-            class="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-700 hover:border-blue-500/60 text-slate-300 hover:text-white rounded-lg font-semibold text-sm transition-all duration-200 hover:bg-blue-500/10 hover:-translate-y-0.5"
-          >
+          <a href={`${base}/contact`}
+            class="inline-flex items-center gap-2 px-5 py-2.5 border border-slate-700 hover:border-blue-500/60 text-slate-300 hover:text-white rounded-lg font-semibold text-sm transition-all duration-200 hover:bg-blue-500/10 hover:-translate-y-0.5">
             Contact Me
           </a>
         </div>
 
-        <div
-          class="flex items-center gap-4 opacity-0 animate-fade-up"
-          style="animation-delay: 0.6s; animation-fill-mode: forwards;"
-        >
-          {
-            socials.map((s) => (
-              <a
-                href={s.href}
-                target="_blank"
-                rel="noopener"
-                aria-label={s.label}
-                class="text-slate-500 hover:text-blue-400 transition-colors duration-200"
-                set:html={s.icon}
-              />
-            ))
-          }
+        <!-- Socials -->
+        <div class="flex items-center gap-5 opacity-0 animate-fade-up" style="animation-delay: 0.6s; animation-fill-mode: forwards;">
+          {socials.map(s => (
+            <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}
+              class="text-slate-500 hover:text-blue-400 transition-colors duration-200"
+              set:html={s.icon}/>
+          ))}
         </div>
       </div>
 
-      <!-- Right: Avatar -->
+      <!-- Right: Avatar with floating cards -->
       <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
-        <div
-          class="relative opacity-0 animate-fade-up"
-          style="animation-delay: 0.3s; animation-fill-mode: forwards;"
-        >
-          <!-- Outer ring animation -->
-          <div class="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 animate-spin-slow opacity-20 blur-sm scale-105"></div>
+        <div class="relative opacity-0 animate-fade-up" style="animation-delay: 0.3s; animation-fill-mode: forwards;">
+
           <!-- Glow ring -->
-          <div class="absolute -inset-3 rounded-full bg-gradient-to-br from-blue-600/30 to-indigo-600/20 blur-xl animate-glow-pulse"></div>
-          <!-- Border ring -->
-          <div class="relative p-1 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-2xl shadow-blue-500/30 animate-float">
-            <div class="p-1 rounded-full bg-[#020617]">
+          <div class="absolute -inset-4 rounded-full bg-gradient-to-br from-blue-600/25 to-indigo-600/15 blur-2xl animate-glow-pulse"></div>
+
+          <!-- Avatar -->
+          <div class="relative p-[3px] rounded-full bg-gradient-to-br from-blue-400 via-blue-600 to-indigo-700 shadow-2xl shadow-blue-500/40 animate-float">
+            <div class="p-[3px] rounded-full bg-[#020617]">
               <img
-                src={`${import.meta.env.BASE_URL}avatar.jpg`}
+                src={`${import.meta.env.BASE_URL}/avatar.jpg`}
                 alt="Duong Ngoc Vu"
-                class="w-52 h-52 sm:w-64 sm:h-64 rounded-full object-cover object-top"
+                class="w-52 h-52 sm:w-60 sm:h-60 rounded-full object-cover object-top"
               />
             </div>
           </div>
-          <!-- Decorative badge -->
-          <div class="absolute -bottom-2 -right-2 bg-[#0f172a] border border-slate-700 rounded-xl px-3 py-2 shadow-xl">
+
+          <!-- Floating stat cards -->
+          <!-- Top-left: GPA -->
+          <div class="absolute -top-4 -left-16 bg-[#0f172a] border border-indigo-500/30 rounded-xl px-3 py-2 shadow-xl shadow-black/40 backdrop-blur-sm animate-float" style="animation-delay: 0.5s;">
+            <p class="text-xs text-slate-500 leading-none">Academic</p>
+            <p class="text-base font-bold font-mono text-indigo-300 leading-tight mt-0.5">GPA 3.7</p>
+            <p class="text-xs text-slate-600">/ 4.0</p>
+          </div>
+
+          <!-- Top-right: Papers -->
+          <div class="absolute -top-2 -right-14 bg-[#0f172a] border border-blue-500/30 rounded-xl px-3 py-2 shadow-xl shadow-black/40 backdrop-blur-sm animate-float" style="animation-delay: 1s;">
+            <p class="text-xs text-slate-500 leading-none">Published</p>
+            <p class="text-base font-bold font-mono text-blue-300 leading-tight mt-0.5">2 Papers</p>
+            <p class="text-xs text-slate-600">CITA 2026</p>
+          </div>
+
+          <!-- Bottom-left: Reviewer -->
+          <div class="absolute -bottom-3 -left-14 bg-[#0f172a] border border-violet-500/30 rounded-xl px-3 py-2 shadow-xl shadow-black/40 backdrop-blur-sm animate-float" style="animation-delay: 1.5s;">
+            <p class="text-xs text-slate-500 leading-none">Conference</p>
+            <p class="text-sm font-bold text-violet-300 leading-tight mt-0.5">Reviewer</p>
+            <p class="text-xs text-slate-600">×2 venues</p>
+          </div>
+
+          <!-- Bottom-right: Role badge -->
+          <div class="absolute -bottom-2 -right-8 bg-[#0f172a] border border-slate-700 rounded-xl px-3 py-2 shadow-xl shadow-black/40 backdrop-blur-sm">
             <div class="flex items-center gap-2">
-              <span class="text-xl">🔬</span>
+              <div class="w-6 h-6 rounded-md bg-blue-600/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
+                <svg class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1 1 .03 2.798-1.338 2.798H4.136c-1.368 0-2.338-1.798-1.338-2.798L4 14.5"/>
+                </svg>
+              </div>
               <div>
                 <p class="text-xs font-semibold text-white leading-none">AI Research</p>
                 <p class="text-xs text-slate-500 leading-none mt-0.5">NEU · 2024–</p>
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
     </div>
 
     <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 animate-bounce">
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 animate-bounce">
       <span class="text-xs text-slate-500 tracking-widest uppercase">Scroll</span>
       <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
       </svg>
     </div>
   </div>
 </section>
+
+<script is:inline>
+(function () {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+
+  let W, H, stars = [];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function initStars() {
+    stars = [];
+    const count = Math.floor((W * H) / 3800);
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.2 + 0.2,
+        alpha: Math.random(),
+        speed: Math.random() * 0.008 + 0.003,
+        phase: Math.random() * Math.PI * 2,
+        color: Math.random() > 0.85 ? '#bfdbfe' : (Math.random() > 0.5 ? '#e2e8f0' : '#93c5fd'),
+      });
+    }
+  }
+
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    frame += 0.016;
+    for (const s of stars) {
+      const a = 0.25 + 0.75 * (0.5 + 0.5 * Math.sin(frame * s.speed * 60 + s.phase));
+      ctx.globalAlpha = a;
+      ctx.fillStyle = s.color;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  resize();
+  initStars();
+  draw();
+})();
+</script>

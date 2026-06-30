@@ -1,0 +1,130 @@
+---
+import { getCollection } from 'astro:content';
+const base = '/NgocDuong.github.io';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
+
+const topics = [
+  { label: 'AI for Healthcare', color: 'blue' },
+  { label: 'Medical Imaging', color: 'indigo' },
+  { label: 'Graph Neural Networks', color: 'violet' },
+  { label: 'Fraud Detection', color: 'blue' },
+  { label: 'Multimodal Learning', color: 'indigo' },
+  { label: 'Deep Learning', color: 'violet' },
+];
+
+const tagColorMap: Record<string, string> = {
+  'Research': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  'Medical Imaging': 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+  'Healthcare': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  'Benchmark': 'bg-violet-500/10 text-violet-400 border-violet-500/20',
+  'AI': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  'Competition': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+};
+const defaultTag = 'bg-slate-700/50 text-slate-400 border-slate-600/30';
+---
+
+<section class="py-24 relative">
+  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-700/60 to-transparent"></div>
+
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="mb-12" data-aos="fade-up">
+      <p class="text-blue-400 font-mono text-sm font-medium mb-2">// recent</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white">Recent Updates</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+
+      <!-- Left: blog post feed (2/3 width) -->
+      <div class="lg:col-span-2 space-y-5">
+        {posts.map((post, i) => {
+          const dateStr = new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          const tags: string[] = post.data.tags ?? [];
+          return (
+            <a
+              href={`${base}/blog/${post.slug}`}
+              class="group block bg-[#0a1628] border border-slate-800/60 hover:border-blue-500/40 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/10"
+              data-aos="fade-up"
+              data-aos-delay={i * 80}
+            >
+              <div class="flex items-center justify-between mb-3">
+                <time class="text-xs font-mono text-slate-600">{dateStr}</time>
+                <div class="flex gap-1.5 flex-wrap justify-end">
+                  {tags.slice(0, 2).map(tag => (
+                    <span class={`text-xs px-2 py-0.5 rounded-full border font-medium ${tagColorMap[tag] ?? defaultTag}`}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <h3 class="text-base font-semibold text-white group-hover:text-blue-200 transition-colors leading-snug mb-2">
+                {post.data.title}
+              </h3>
+              <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">{post.data.description}</p>
+              <div class="flex items-center gap-1.5 mt-3 text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+                Read more
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </div>
+            </a>
+          );
+        })}
+
+        <div data-aos="fade-up" data-aos-delay="240">
+          <a href={`${base}/blog`}
+            class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-blue-400 transition-colors font-medium">
+            View all posts
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: topics -->
+      <div class="space-y-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="bg-[#0a1628] border border-slate-800/60 rounded-2xl p-5">
+          <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Research Topics</h3>
+          <div class="flex flex-wrap gap-2">
+            {topics.map(t => (
+              <a href={`${base}/research`}
+                class={`text-sm px-3 py-1.5 rounded-lg border font-medium transition-all duration-200 hover:-translate-y-0.5 ${
+                  t.color === 'blue' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:bg-blue-500/20' :
+                  t.color === 'indigo' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20 hover:bg-indigo-500/20' :
+                  'bg-violet-500/10 text-violet-400 border-violet-500/20 hover:bg-violet-500/20'
+                }`}>
+                {t.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div class="bg-[#0a1628] border border-slate-800/60 rounded-2xl p-5">
+          <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Quick Links</h3>
+          <div class="space-y-2.5">
+            {[
+              { label: 'Publications', href: `${base}/research`, icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
+              { label: 'Experience', href: `${base}/experience`, icon: 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
+              { label: 'CV / Resume', href: `${base}/cv.pdf`, icon: 'M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z' },
+            ].map(l => (
+              <a href={l.href}
+                class="flex items-center gap-3 text-sm text-slate-400 hover:text-blue-400 transition-colors group py-1">
+                <svg class="w-4 h-4 flex-shrink-0 text-slate-600 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={l.icon}/>
+                </svg>
+                {l.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
