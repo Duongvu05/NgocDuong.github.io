@@ -113,7 +113,7 @@ DV
           }
 
           // Meteors
-          if (Math.random() < 0.004) spawnMeteor();
+          if (Math.random() < 0.018) spawnMeteor();
           for (let i = meteors.length - 1; i >= 0; i--) {
             const m = meteors[i];
             m.x += m.vx; m.y += m.vy; m.life -= m.decay;
@@ -151,8 +151,10 @@ DV
         window.addEventListener('resize', () => { resize(); initStars(); });
         resize();
         initStars();
-        setTimeout(spawnMeteor, 800);
-        setTimeout(spawnMeteor, 3000);
+        setTimeout(spawnMeteor, 400);
+        setTimeout(spawnMeteor, 900);
+        setTimeout(spawnMeteor, 1800);
+        setTimeout(spawnMeteor, 3200);
         draw();
       })();
     </script> </body> </html>
