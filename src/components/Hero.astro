@@ -112,14 +112,12 @@ const stats = [
         <div id="orbit-system" class="relative opacity-0 animate-fade-up flex items-center justify-center"
           style="width:420px;height:420px;animation-delay:0.3s;animation-fill-mode:forwards;">
 
-          <!-- Orbit ring tracks -->
-          <div class="absolute rounded-full border border-blue-500/10 border-dashed pointer-events-none"
-            style="width:360px;height:360px;"></div>
-          <div class="absolute rounded-full border border-indigo-500/8 pointer-events-none"
-            style="width:300px;height:300px;"></div>
+          <!-- 3D orbit ring (ellipse for perspective) -->
+          <div class="absolute border border-blue-400/15 border-dashed pointer-events-none rounded-full"
+            style="width:340px;height:112px;"></div>
 
           <!-- Avatar centered -->
-          <div class="relative z-10 flex-shrink-0">
+          <div class="relative flex-shrink-0" style="z-index:10;">
             <div class="absolute -inset-4 rounded-full bg-gradient-to-br from-blue-600/20 to-indigo-600/10 blur-2xl"></div>
             <div class="relative p-[3px] rounded-full bg-gradient-to-br from-blue-400 via-blue-600 to-indigo-700 shadow-2xl shadow-blue-500/40 animate-float">
               <div class="p-[3px] rounded-full bg-[#020617]">
@@ -191,26 +189,40 @@ const stats = [
 
   const cards = Array.from(system.querySelectorAll('.orbit-card'));
   const N = cards.length;
-  const RADIUS = 168;
-  const PERIOD = 18000; // ms for full orbit
+  const RX = 170;   // horizontal radius
+  const RY = 56;    // vertical radius (perspective tilt ~18°)
+  const PERIOD = 20000; // ms per full orbit
 
-  // Initialize angle offsets so cards are evenly spaced
+  // Evenly space cards around the orbit
   const offsets = cards.map((_, i) => (i / N) * Math.PI * 2);
 
-  let rafId;
   function animate(ts) {
-    const t = ts / PERIOD * Math.PI * 2;
+    const t = (ts / PERIOD) * Math.PI * 2;
+
     cards.forEach((card, i) => {
       const angle = t + offsets[i];
-      const x = Math.cos(angle) * RADIUS;
-      const y = Math.sin(angle) * RADIUS;
+      const x = Math.cos(angle) * RX;
+      const y = Math.sin(angle) * RY;
+      // z: +1 = closest to viewer (front), -1 = furthest (back)
+      const z = Math.sin(angle);
+
+      // Scale: front bigger, back smaller
+      const scale = 0.72 + 0.32 * (z + 1) / 2;
+      // Opacity: front visible, back faded
+      const opacity = 0.35 + 0.65 * (z + 1) / 2;
+      // z-index: front cards above avatar (z-index 10), back cards below
+      const zIdx = z > 0 ? 15 : 5;
+
       card.style.left = '50%';
       card.style.top  = '50%';
-      card.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%))`;
+      card.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(${scale.toFixed(3)})`;
+      card.style.opacity = opacity.toFixed(3);
+      card.style.zIndex  = zIdx;
     });
-    rafId = requestAnimationFrame(animate);
+
+    requestAnimationFrame(animate);
   }
 
-  rafId = requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 })();
 </script>
