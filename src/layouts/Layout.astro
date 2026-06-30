@@ -26,10 +26,63 @@ const {
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
   </head>
   <body class="bg-[#020617] text-slate-100 font-sans antialiased overflow-x-hidden">
-    <slot />
+    <!-- Global starfield background -->
+    <canvas id="starfield-global" class="fixed inset-0 w-full h-full pointer-events-none" style="z-index:0;"></canvas>
+    <!-- Content above starfield -->
+    <div class="relative" style="z-index:1;">
+      <slot />
+    </div>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" is:inline></script>
     <script is:inline>
       AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60 });
+
+      // Global starfield
+      (function () {
+        const canvas = document.getElementById('starfield-global');
+        const ctx = canvas.getContext('2d');
+        let W, H, stars = [];
+
+        function resize() {
+          W = canvas.width = window.innerWidth;
+          H = canvas.height = window.innerHeight;
+        }
+
+        function initStars() {
+          stars = [];
+          const count = Math.floor((W * H) / 4200);
+          for (let i = 0; i < count; i++) {
+            stars.push({
+              x: Math.random() * W,
+              y: Math.random() * H,
+              r: Math.random() * 1.1 + 0.15,
+              phase: Math.random() * Math.PI * 2,
+              speed: Math.random() * 0.006 + 0.002,
+              color: Math.random() > 0.8 ? '#bfdbfe' : (Math.random() > 0.5 ? '#e2e8f0' : '#93c5fd'),
+            });
+          }
+        }
+
+        let frame = 0;
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          frame += 0.016;
+          for (const s of stars) {
+            const a = 0.15 + 0.65 * (0.5 + 0.5 * Math.sin(frame * s.speed * 60 + s.phase));
+            ctx.globalAlpha = a;
+            ctx.fillStyle = s.color;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.globalAlpha = 1;
+          requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', () => { resize(); initStars(); });
+        resize();
+        initStars();
+        draw();
+      })();
     </script>
   </body>
 </html>
