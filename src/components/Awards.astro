@@ -1,123 +1,178 @@
 ---
 const items = [
   {
-    label: '1st',
-    title: 'First Prize — Faculty-level Scientific Research Competition',
-    org: 'Faculty of Data Science and AI, NEU',
-    date: 'Jan 2026',
-    color: 'from-amber-500/15 to-yellow-500/5 border-amber-500/20 hover:border-amber-500/40',
-    badge: 'Award',
-    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  },
-  {
-    label: 'Top',
     title: 'Outstanding Student Award — Faculty of Mathematical Economics, NEU 2025-2026',
     org: 'National Economics University',
     date: 'May 2026',
-    color: 'from-amber-500/15 to-yellow-500/5 border-amber-500/20 hover:border-amber-500/40',
+    sortDate: '2026-05',
     badge: 'Award',
+    dotColor: '#f59e0b',
     badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    lineColor: 'border-amber-500/30',
   },
   {
-    label: 'Top',
-    title: 'Outstanding Member of Business AI Lab',
-    org: 'Business AI Lab, NEU',
-    date: 'Dec 2025',
-    color: 'from-amber-500/15 to-yellow-500/5 border-amber-500/20 hover:border-amber-500/40',
-    badge: 'Award',
-    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  },
-  {
-    label: 'Prize',
-    title: 'Consolation Prize — Vietnam Student AI Olympics 2025 (Northern Region)',
-    org: 'Vietnam Student AI Olympics',
-    date: 'Dec 2025',
-    color: 'from-blue-500/15 to-indigo-500/5 border-blue-500/20 hover:border-blue-500/40',
-    badge: 'Competition',
-    badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  },
-  {
-    label: '1st',
-    title: 'First Prize — Biztech Hackathon 2025 (A.ignite)',
-    org: 'Biztech Hackathon',
-    date: 'Mar 2025',
-    color: 'from-amber-500/15 to-yellow-500/5 border-amber-500/20 hover:border-amber-500/40',
-    badge: 'Award',
-    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-  },
-  {
-    label: 'Rev',
     title: 'Reviewer — CITA 2026',
-    org: 'Conference on Information Technology and its Applications',
+    org: 'Conference on Information Technology and Its Applications',
     date: 'Feb 2026',
-    color: 'from-blue-500/15 to-cyan-500/5 border-blue-500/20 hover:border-blue-500/40',
+    sortDate: '2026-02',
     badge: 'Reviewer',
+    dotColor: '#3b82f6',
     badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    lineColor: 'border-blue-500/30',
   },
   {
-    label: 'Rev',
+    title: 'First Prize — Faculty-level Scientific Research Competition',
+    org: 'Faculty of Data Science and AI, NEU',
+    date: 'Jan 2026',
+    sortDate: '2026-01',
+    badge: 'Award',
+    dotColor: '#f59e0b',
+    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    lineColor: 'border-amber-500/30',
+  },
+  {
     title: 'Reviewer — FJCAI 2026',
     org: 'National Conference on Artificial Intelligence',
     date: 'Jan 2026',
-    color: 'from-blue-500/15 to-cyan-500/5 border-blue-500/20 hover:border-blue-500/40',
+    sortDate: '2026-01',
     badge: 'Reviewer',
+    dotColor: '#3b82f6',
     badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    lineColor: 'border-blue-500/30',
   },
   {
-    label: 'TA',
     title: 'Teaching Assistant — Machine Learning, NEU',
     org: 'National Economics University',
     date: 'Jan 2026',
-    color: 'from-violet-500/15 to-indigo-500/5 border-violet-500/20 hover:border-violet-500/40',
+    sortDate: '2026-01',
     badge: 'Teaching',
+    dotColor: '#8b5cf6',
     badgeColor: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
+    lineColor: 'border-violet-500/30',
   },
   {
-    label: 'Mnt',
+    title: 'Outstanding Member of Business AI Lab 2025',
+    org: 'Business AI Lab, NEU',
+    date: 'Dec 2025',
+    sortDate: '2025-12',
+    badge: 'Award',
+    dotColor: '#f59e0b',
+    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    lineColor: 'border-amber-500/30',
+  },
+  {
+    title: 'Consolation Prize — Vietnam Student AI Olympics 2025 (Northern Region)',
+    org: 'Vietnam Student AI Olympics',
+    date: 'Dec 2025',
+    sortDate: '2025-12',
+    badge: 'Competition',
+    dotColor: '#3b82f6',
+    badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    lineColor: 'border-blue-500/30',
+  },
+  {
     title: 'Mentor — Fulbright STEM Mentorship Program',
     org: 'U.S. Embassy Hanoi',
-    date: 'Feb–May 2025',
-    color: 'from-sky-500/15 to-blue-500/5 border-sky-500/20 hover:border-sky-500/40',
+    date: 'Feb – May 2025',
+    sortDate: '2025-02',
     badge: 'Mentorship',
+    dotColor: '#0ea5e9',
     badgeColor: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+    lineColor: 'border-sky-500/30',
   },
-];
+  {
+    title: 'First Prize — Biztech Hackathon 2025 (A.ignite)',
+    org: 'Biztech Hackathon',
+    date: 'Mar 2025',
+    sortDate: '2025-03',
+    badge: 'Award',
+    dotColor: '#f59e0b',
+    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    lineColor: 'border-amber-500/30',
+  },
+].sort((a, b) => b.sortDate.localeCompare(a.sortDate));
+
+// Group by year
+const grouped: Record<string, typeof items> = {};
+for (const item of items) {
+  const year = item.sortDate.slice(0, 4);
+  if (!grouped[year]) grouped[year] = [];
+  grouped[year].push(item);
+}
+const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
 ---
 
 <section id="awards" class="py-24 relative">
   <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent"></div>
 
-  <div class="max-w-6xl mx-auto px-6">
+  <div class="max-w-3xl mx-auto px-6">
 
     <div class="mb-14" data-aos="fade-up">
       <p class="text-blue-400 font-mono text-sm font-medium mb-2">// 05. activities</p>
       <h2 class="text-3xl sm:text-4xl font-bold text-white">Awards & Activities</h2>
+      <p class="text-slate-500 text-sm mt-2 font-mono">Updated {new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {
-        items.map((item, i) => (
-          <div
-            data-aos="fade-up"
-            data-aos-delay={Math.min(i * 60, 300)}
-            class={`relative p-5 rounded-xl bg-gradient-to-br ${item.color} border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg group`}
-          >
-            <div class="flex items-start justify-between gap-2 mb-3">
-              <div class="w-8 h-8 rounded-md bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
-                <span class="text-xs font-bold font-mono text-slate-300">{item.label}</span>
+    <div class="relative">
+      <!-- Vertical timeline line -->
+      <div class="absolute left-[5.5rem] top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/40 via-slate-700/40 to-transparent hidden sm:block"></div>
+
+      <div class="space-y-10">
+        {years.map((year) => (
+          <div>
+            <!-- Year marker -->
+            <div class="flex items-center gap-4 mb-6" data-aos="fade-right">
+              <div class="hidden sm:flex w-[5.5rem] justify-end pr-4">
+                <span class="text-xs font-bold font-mono text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-full">
+                  {year}
+                </span>
               </div>
-              <span class={`text-xs px-2 py-0.5 rounded-full border font-medium ${item.badgeColor}`}>
-                {item.badge}
-              </span>
+              <div class="sm:hidden text-xs font-bold font-mono text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-full">
+                {year}
+              </div>
             </div>
-            <h4 class="font-semibold text-white text-sm leading-snug mb-1.5 group-hover:text-blue-100 transition-colors">
-              {item.title}
-            </h4>
-            <p class="text-xs text-slate-500 mb-1">{item.org}</p>
-            <p class="text-xs text-slate-600 font-mono">{item.date}</p>
+
+            <!-- Items for this year -->
+            <div class="space-y-4">
+              {grouped[year].map((item, i) => (
+                <div
+                  class="flex items-start gap-4 sm:gap-0 timeline-item"
+                  data-aos="fade-up"
+                  data-aos-delay={i * 70}
+                >
+                  <!-- Date column -->
+                  <div class="hidden sm:flex w-[5.5rem] flex-shrink-0 justify-end pr-6 pt-3">
+                    <span class="text-xs text-slate-600 font-mono text-right leading-tight">
+                      {item.date.replace(/\d{4}/, '').trim().replace(/–?\s*$/, '')}
+                    </span>
+                  </div>
+
+                  <!-- Dot -->
+                  <div class="hidden sm:flex flex-shrink-0 w-3 h-3 rounded-full border-2 mt-3.5 -ml-1.5 z-10"
+                    style={`border-color: ${item.dotColor}; background: #020617; box-shadow: 0 0 8px ${item.dotColor}60;`}
+                  ></div>
+
+                  <!-- Card -->
+                  <div class={`flex-1 sm:ml-5 p-4 rounded-xl bg-[#0f172a] border ${item.lineColor} hover:border-opacity-60 transition-all duration-300 group hover:shadow-lg hover:-translate-y-0.5`}>
+                    <div class="flex items-start justify-between gap-3">
+                      <h4 class="font-semibold text-white text-sm leading-snug group-hover:text-blue-100 transition-colors">
+                        {item.title}
+                      </h4>
+                      <span class={`flex-shrink-0 text-xs px-2 py-0.5 rounded-full border font-medium ${item.badgeColor}`}>
+                        {item.badge}
+                      </span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                      <p class="text-xs text-slate-500">{item.org}</p>
+                      <p class="text-xs text-slate-600 font-mono sm:hidden">{item.date}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        ))
-      }
+        ))}
+      </div>
     </div>
   </div>
 </section>
