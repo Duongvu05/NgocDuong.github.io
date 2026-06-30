@@ -107,52 +107,59 @@ const stats = [
         </div>
       </div>
 
-      <!-- Right: Avatar with floating cards -->
+      <!-- Right: Avatar with orbiting cards -->
       <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
-        <div class="relative opacity-0 animate-fade-up" style="animation-delay: 0.3s; animation-fill-mode: forwards;">
+        <div id="orbit-system" class="relative opacity-0 animate-fade-up flex items-center justify-center"
+          style="width:420px;height:420px;animation-delay:0.3s;animation-fill-mode:forwards;">
 
-          <!-- Glow ring -->
-          <div class="absolute -inset-4 rounded-full bg-gradient-to-br from-blue-600/25 to-indigo-600/15 blur-2xl animate-glow-pulse"></div>
+          <!-- Orbit ring tracks -->
+          <div class="absolute rounded-full border border-blue-500/10 border-dashed pointer-events-none"
+            style="width:360px;height:360px;"></div>
+          <div class="absolute rounded-full border border-indigo-500/8 pointer-events-none"
+            style="width:300px;height:300px;"></div>
 
-          <!-- Avatar -->
-          <div class="relative p-[3px] rounded-full bg-gradient-to-br from-blue-400 via-blue-600 to-indigo-700 shadow-2xl shadow-blue-500/40 animate-float">
-            <div class="p-[3px] rounded-full bg-[#020617]">
-              <img
-                src={`${import.meta.env.BASE_URL}/avatar.jpg`}
-                alt="Duong Ngoc Vu"
-                class="w-52 h-52 sm:w-60 sm:h-60 rounded-full object-cover object-top"
-              />
+          <!-- Avatar centered -->
+          <div class="relative z-10 flex-shrink-0">
+            <div class="absolute -inset-4 rounded-full bg-gradient-to-br from-blue-600/20 to-indigo-600/10 blur-2xl"></div>
+            <div class="relative p-[3px] rounded-full bg-gradient-to-br from-blue-400 via-blue-600 to-indigo-700 shadow-2xl shadow-blue-500/40 animate-float">
+              <div class="p-[3px] rounded-full bg-[#020617]">
+                <img
+                  src={`${import.meta.env.BASE_URL}/avatar.jpg`}
+                  alt="Duong Ngoc Vu"
+                  class="w-44 h-44 sm:w-48 sm:h-48 rounded-full object-cover object-top"
+                />
+              </div>
             </div>
           </div>
 
-          <!-- Floating stat cards -->
-          <!-- Top-left: GPA -->
-          <div class="absolute -top-4 -left-16 bg-[#0f172a] border border-indigo-500/30 rounded-xl px-3 py-2 shadow-xl shadow-black/40 backdrop-blur-sm animate-float" style="animation-delay: 0.5s;">
+          <!-- Orbiting cards (positioned by JS) -->
+          <div class="orbit-card absolute z-20 bg-[#0a1628]/90 border border-indigo-500/30 rounded-xl px-3 py-2 shadow-xl backdrop-blur-sm pointer-events-none"
+            data-orbit-speed="0.4">
             <p class="text-xs text-slate-500 leading-none">Academic</p>
-            <p class="text-base font-bold font-mono text-indigo-300 leading-tight mt-0.5">GPA 3.7</p>
+            <p class="text-sm font-bold font-mono text-indigo-300 leading-tight mt-0.5">GPA 3.7</p>
             <p class="text-xs text-slate-600">/ 4.0</p>
           </div>
 
-          <!-- Top-right: Papers -->
-          <div class="absolute -top-2 -right-14 bg-[#0f172a] border border-blue-500/30 rounded-xl px-3 py-2 shadow-xl shadow-black/40 backdrop-blur-sm animate-float" style="animation-delay: 1s;">
+          <div class="orbit-card absolute z-20 bg-[#0a1628]/90 border border-blue-500/30 rounded-xl px-3 py-2 shadow-xl backdrop-blur-sm pointer-events-none"
+            data-orbit-speed="0.4">
             <p class="text-xs text-slate-500 leading-none">Published</p>
-            <p class="text-base font-bold font-mono text-blue-300 leading-tight mt-0.5">2 Papers</p>
+            <p class="text-sm font-bold font-mono text-blue-300 leading-tight mt-0.5">2 Papers</p>
             <p class="text-xs text-slate-600">CITA 2026</p>
           </div>
 
-          <!-- Bottom-left: Reviewer -->
-          <div class="absolute -bottom-3 -left-14 bg-[#0f172a] border border-violet-500/30 rounded-xl px-3 py-2 shadow-xl shadow-black/40 backdrop-blur-sm animate-float" style="animation-delay: 1.5s;">
+          <div class="orbit-card absolute z-20 bg-[#0a1628]/90 border border-violet-500/30 rounded-xl px-3 py-2 shadow-xl backdrop-blur-sm pointer-events-none"
+            data-orbit-speed="0.4">
             <p class="text-xs text-slate-500 leading-none">Conference</p>
             <p class="text-sm font-bold text-violet-300 leading-tight mt-0.5">Reviewer</p>
             <p class="text-xs text-slate-600">×2 venues</p>
           </div>
 
-          <!-- Bottom-right: Role badge -->
-          <div class="absolute -bottom-2 -right-8 bg-[#0f172a] border border-slate-700 rounded-xl px-3 py-2 shadow-xl shadow-black/40 backdrop-blur-sm">
+          <div class="orbit-card absolute z-20 bg-[#0a1628]/90 border border-slate-600/40 rounded-xl px-3 py-2 shadow-xl backdrop-blur-sm pointer-events-none"
+            data-orbit-speed="0.4">
             <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-md bg-blue-600/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
-                <svg class="w-3.5 h-3.5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1 1 .03 2.798-1.338 2.798H4.136c-1.368 0-2.338-1.798-1.338-2.798L4 14.5"/>
+              <div class="w-5 h-5 rounded-md bg-blue-600/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
+                <svg class="w-3 h-3 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5"/>
                 </svg>
               </div>
               <div>
@@ -168,7 +175,7 @@ const stats = [
     </div>
 
     <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 animate-bounce">
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30 animate-bounce" aria-hidden="true">
       <span class="text-xs text-slate-500 tracking-widest uppercase">Scroll</span>
       <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -177,3 +184,33 @@ const stats = [
   </div>
 </section>
 
+<script is:inline>
+(function () {
+  const system = document.getElementById('orbit-system');
+  if (!system) return;
+
+  const cards = Array.from(system.querySelectorAll('.orbit-card'));
+  const N = cards.length;
+  const RADIUS = 168;
+  const PERIOD = 18000; // ms for full orbit
+
+  // Initialize angle offsets so cards are evenly spaced
+  const offsets = cards.map((_, i) => (i / N) * Math.PI * 2);
+
+  let rafId;
+  function animate(ts) {
+    const t = ts / PERIOD * Math.PI * 2;
+    cards.forEach((card, i) => {
+      const angle = t + offsets[i];
+      const x = Math.cos(angle) * RADIUS;
+      const y = Math.sin(angle) * RADIUS;
+      card.style.left = '50%';
+      card.style.top  = '50%';
+      card.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%))`;
+    });
+    rafId = requestAnimationFrame(animate);
+  }
+
+  rafId = requestAnimationFrame(animate);
+})();
+</script>
