@@ -81,229 +81,190 @@ Contact Me
 
   requestAnimationFrame(animate);
 })();
-</script> <section id="about" class="py-24 relative"> <div class="max-w-6xl mx-auto px-6"> <div class="mb-14" data-aos="fade-up"> <p class="text-blue-400 font-mono text-sm font-medium mb-2">// 01. about</p> <h2 class="text-3xl sm:text-4xl font-bold text-white">About Me</h2> </div> <div class="grid lg:grid-cols-5 gap-12 items-start"> <!-- Bio --> <div class="lg:col-span-2" data-aos="fade-up" data-aos-delay="100"> <div class="space-y-4 text-slate-400 leading-relaxed mb-8"> <p>
-I am an undergraduate researcher at
-<a href="https://bailab.vn/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">Business AI Lab</a>,
-            National Economics University, working on
-<span class="text-slate-200 font-medium">AI for Healthcare</span> and
-<span class="text-slate-200 font-medium">Graph-based Fraud Detection</span> under
-<a href="https://tvluong.wordpress.com/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">Dr. Thien Van Luong</a>.
-</p> <p>
-Actively seeking <span class="text-slate-200 font-medium">Research Assistant</span> and
-<span class="text-slate-200 font-medium">PhD opportunities</span> in machine learning, computer vision, or medical AI — starting 2027.
-</p> </div> </div> <!-- Research Interests Graph - wider --> <div class="lg:col-span-3" data-aos="fade-up" data-aos-delay="200"> <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Research Interests</h3> <div id="research-graph" class="w-full h-64 rounded-xl overflow-hidden relative"></div> </div> </div> </div> </section> <script>
-  // Circular skill rings
-  const ringObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.querySelectorAll('.skill-ring').forEach((ring, i) => {
-        const level = parseFloat(ring.getAttribute('data-level'));
-        const circ = parseFloat(ring.getAttribute('data-circ'));
-        const offset = circ * (1 - level / 100);
-        setTimeout(() => {
-          ring.style.transition = 'stroke-dashoffset 1.1s cubic-bezier(0.4,0,0.2,1)';
-          ring.style.strokeDashoffset = offset;
-        }, i * 80);
-      });
-      ringObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.25 });
+</script> <section id="topics" class="py-20 relative"> <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent"></div> <div class="max-w-6xl mx-auto px-6"> <div class="mb-10" data-aos="fade-up"> <p class="text-blue-400 font-mono text-sm font-medium mb-2">// research map</p> <h2 class="text-3xl sm:text-4xl font-bold text-white">Topic Focus</h2> <p class="text-slate-400 mt-2 text-sm">Drag nodes to explore connections between research areas.</p> </div> <div data-aos="fade-up" data-aos-delay="100"> <div id="topic-graph-container" class="w-full rounded-2xl border border-slate-800/50 bg-[#06101f]/80 overflow-hidden" style="height: 460px;"></div> </div> </div> </section> <script>
+(function () {
+  const nodes = [
+    { id: 'center',    label: 'AI\nResearch',         abbr: 'AI',   r: 34, type: 'root',  color: '#93c5fd' },
+    { id: 'hc',        label: 'AI for\nHealthcare',   abbr: 'HC',   r: 26, type: 'area',  color: '#3b82f6' },
+    { id: 'fd',        label: 'Fraud\nDetection',     abbr: 'FD',   r: 26, type: 'area',  color: '#6366f1' },
+    { id: 'at',        label: 'Attention\nMechanisms',abbr: 'AT',   r: 24, type: 'area',  color: '#0ea5e9' },
+    { id: 'bd',        label: 'Benchmark\nDatasets',  abbr: 'BD',   r: 24, type: 'area',  color: '#8b5cf6' },
+    { id: 'mi',        label: 'Medical\nImaging',     abbr: 'MI',   r: 18, type: 'tag',   color: '#3b82f6' },
+    { id: 'mri',       label: 'MRI\nAnalysis',        abbr: 'MRI',  r: 18, type: 'tag',   color: '#3b82f6' },
+    { id: 'gnn',       label: 'Graph\nNeural Nets',   abbr: 'GNN',  r: 18, type: 'tag',   color: '#6366f1' },
+    { id: 'tr',        label: 'Transformers',         abbr: 'TR',   r: 16, type: 'tag',   color: '#0ea5e9' },
+    { id: 'mm',        label: 'Multimodal\nLearning', abbr: 'MM',   r: 18, type: 'tag',   color: '#0ea5e9' },
+    { id: 'phenspin',  label: 'PhenSPINE',            abbr: 'PS',   r: 16, type: 'tag',   color: '#8b5cf6' },
+    { id: 'eth',       label: 'Ethereum\nFraud',      abbr: 'ETH',  r: 16, type: 'tag',   color: '#6366f1' },
+  ];
 
-  const aboutSection = document.getElementById('about');
-  if (aboutSection) ringObserver.observe(aboutSection);
+  const links = [
+    { source: 'center', target: 'hc',        w: 2.5 },
+    { source: 'center', target: 'fd',        w: 2.5 },
+    { source: 'center', target: 'at',        w: 2   },
+    { source: 'center', target: 'bd',        w: 2   },
+    { source: 'hc',     target: 'mi',        w: 1.5 },
+    { source: 'hc',     target: 'mri',       w: 1.5 },
+    { source: 'hc',     target: 'mm',        w: 1.5 },
+    { source: 'fd',     target: 'gnn',       w: 1.5 },
+    { source: 'fd',     target: 'eth',       w: 1.5 },
+    { source: 'at',     target: 'tr',        w: 1.5 },
+    { source: 'at',     target: 'mm',        w: 1   },
+    { source: 'bd',     target: 'phenspin',  w: 1.5 },
+    { source: 'bd',     target: 'mi',        w: 1   },
+    { source: 'gnn',    target: 'hc',        w: 1, dashed: true },
+    { source: 'mm',     target: 'bd',        w: 1, dashed: true },
+  ];
 
-  // Research interest graph (D3 force-directed)
-  function initGraph() {
-    const container = document.getElementById('research-graph');
-    if (!container || typeof d3 === 'undefined') return;
+  function init() {
+    if (typeof d3 === 'undefined') return;
+    const cont = document.getElementById('topic-graph-container');
+    if (!cont) return;
+    cont.innerHTML = '';
+    const W = cont.clientWidth, H = cont.clientHeight || 460;
 
-    const W = container.clientWidth;
-    const H = container.clientHeight;
-
-    const nodes = [
-      { id: 'center', label: 'AI\nResearch', abbr: 'AI', r: 28, main: true },
-      { id: 'health', label: 'AI for\nHealthcare', abbr: 'HC', r: 22 },
-      { id: 'imaging', label: 'Medical\nImaging', abbr: 'MI', r: 22 },
-      { id: 'fraud', label: 'Fraud\nDetection', abbr: 'FD', r: 22 },
-      { id: 'gnn', label: 'Graph Neural\nNetworks', abbr: 'GNN', r: 22 },
-      { id: 'multimodal', label: 'Multimodal\nLearning', abbr: 'ML', r: 22 },
-    ];
-
-    const links = [
-      { source: 'center', target: 'health' },
-      { source: 'center', target: 'imaging' },
-      { source: 'center', target: 'fraud' },
-      { source: 'center', target: 'gnn' },
-      { source: 'center', target: 'multimodal' },
-      { source: 'health', target: 'imaging' },
-      { source: 'health', target: 'multimodal' },
-      { source: 'fraud', target: 'gnn' },
-    ];
-
-    container.innerHTML = '';
-    const svg = d3.select(container)
-      .append('svg')
-      .attr('width', W)
-      .attr('height', H)
-      .style('background', 'transparent');
-
-    // Defs: glow filter + gradient
+    const svg = d3.select(cont).append('svg').attr('width', W).attr('height', H);
     const defs = svg.append('defs');
 
-    const glow = defs.append('filter').attr('id', 'glow');
-    glow.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'coloredBlur');
-    const feMerge = glow.append('feMerge');
-    feMerge.append('feMergeNode').attr('in', 'coloredBlur');
-    feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+    // glow
+    const f = defs.append('filter').attr('id', 'tg-glow');
+    f.append('feGaussianBlur').attr('stdDeviation', '3.5').attr('result', 'b');
+    const m = f.append('feMerge');
+    m.append('feMergeNode').attr('in', 'b');
+    m.append('feMergeNode').attr('in', 'SourceGraphic');
 
-    const grad = defs.append('radialGradient').attr('id', 'node-grad');
-    grad.append('stop').attr('offset', '0%').attr('stop-color', '#60a5fa');
-    grad.append('stop').attr('offset', '100%').attr('stop-color', '#2563eb');
+    // gradient per area node
+    nodes.filter(n => n.type !== 'tag').forEach(n => {
+      const g = defs.append('radialGradient').attr('id', `tg-g-${n.id}`);
+      g.append('stop').attr('offset', '0%').attr('stop-color', n.color).attr('stop-opacity', 0.35);
+      g.append('stop').attr('offset', '100%').attr('stop-color', n.color).attr('stop-opacity', 0.05);
+    });
 
-    const gradMain = defs.append('radialGradient').attr('id', 'node-grad-main');
-    gradMain.append('stop').attr('offset', '0%').attr('stop-color', '#93c5fd');
-    gradMain.append('stop').attr('offset', '100%').attr('stop-color', '#1d4ed8');
+    const ns = nodes.map(d => ({ ...d }));
+    const ls = links.map(d => ({ ...d }));
 
-    const sim = d3.forceSimulation(nodes)
-      .force('link', d3.forceLink(links).id(d => d.id).distance(90).strength(0.6))
-      .force('charge', d3.forceManyBody().strength(-220))
+    const sim = d3.forceSimulation(ns)
+      .force('link', d3.forceLink(ls).id(d => d.id)
+        .distance(d => {
+          const s = ns.find(n => n.id === (d.source.id || d.source));
+          if (s && s.type === 'root') return 130;
+          if (s && s.type === 'area') return 80;
+          return 70;
+        }).strength(0.7))
+      .force('charge', d3.forceManyBody().strength(n => n.type === 'root' ? -700 : n.type === 'area' ? -350 : -180))
       .force('center', d3.forceCenter(W / 2, H / 2))
-      .force('collision', d3.forceCollide().radius(d => d.r + 18));
+      .force('collision', d3.forceCollide().radius(n => n.r + 16));
 
-    // Animated gradient edge
-    const linkGrad = defs.append('linearGradient').attr('id', 'link-grad').attr('gradientUnits', 'userSpaceOnUse');
-    linkGrad.append('stop').attr('offset', '0%').attr('stop-color', '#3b82f6').attr('stop-opacity', 0.5);
-    linkGrad.append('stop').attr('offset', '100%').attr('stop-color', '#6366f1').attr('stop-opacity', 0.1);
-
-    const link = svg.append('g')
-      .selectAll('line')
-      .data(links)
-      .join('line')
-      .attr('stroke', 'url(#link-grad)')
-      .attr('stroke-width', 1.5)
-      .attr('stroke-dasharray', '5 4')
+    // Links
+    const linkEl = svg.append('g').selectAll('line').data(ls).join('line')
+      .attr('stroke', d => {
+        const s = ns.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        return s ? s.color + (d.dashed ? '40' : '70') : '#3b82f650';
+      })
+      .attr('stroke-width', d => d.w || 1.5)
+      .attr('stroke-dasharray', d => d.dashed ? '5 4' : '6 4')
       .attr('stroke-dashoffset', 0);
 
-    // Animate dash offset
-    function animateDash() {
-      link.transition()
-        .duration(2000)
-        .ease(d3.easeLinear)
+    // Animate dash
+    function dash() {
+      linkEl.filter(d => !d.dashed)
+        .transition().duration(2400).ease(d3.easeLinear)
         .attr('stroke-dashoffset', -18)
-        .on('end', () => {
-          link.attr('stroke-dashoffset', 0);
-          animateDash();
-        });
+        .on('end', function () { d3.select(this).attr('stroke-dashoffset', 0); dash.call(this); });
     }
-    animateDash();
+    dash();
 
-    const node = svg.append('g')
-      .selectAll('g')
-      .data(nodes)
-      .join('g')
-      .style('cursor', 'pointer')
-      .call(
-        d3.drag()
-          .on('start', (event, d) => { if (!event.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-          .on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; })
-          .on('end', (event, d) => { if (!event.active) sim.alphaTarget(0); d.fx = null; d.fy = null; })
-      );
+    // Nodes
+    const nodeG = svg.append('g').selectAll('g').data(ns).join('g')
+      .style('cursor', 'grab')
+      .call(d3.drag()
+        .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+        .on('drag',  (e, d) => { d.fx = e.x; d.fy = e.y; })
+        .on('end',   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
 
-    // Outer glow ring (pulsing for center)
-    const outerRing = node.append('circle')
-      .attr('r', d => d.r + 6)
+    // Glow halo
+    nodeG.append('circle')
+      .attr('r', d => d.r + 10)
+      .attr('fill', d => d.type !== 'tag' ? `url(#tg-g-${d.id})` : 'none')
+      .attr('stroke', d => d.color)
+      .attr('stroke-width', 0)
+      .attr('filter', 'url(#tg-glow)');
+
+    // Pulse ring for root
+    const pulse = nodeG.filter(d => d.type === 'root').append('circle')
+      .attr('r', d => d.r + 8)
       .attr('fill', 'none')
-      .attr('stroke', d => d.main ? 'rgba(147,197,253,0.35)' : 'rgba(59,130,246,0.12)')
+      .attr('stroke', '#93c5fd')
       .attr('stroke-width', 1.5)
-      .attr('filter', 'url(#glow)');
+      .attr('stroke-opacity', 0.4);
 
-    // Pulse animation on center node ring
-    function pulseRing() {
-      outerRing.filter(d => d.main)
-        .transition().duration(1200).ease(d3.easeSinInOut)
-        .attr('r', d => d.r + 12).attr('stroke-opacity', 0.1)
-        .transition().duration(1200).ease(d3.easeSinInOut)
-        .attr('r', d => d.r + 6).attr('stroke-opacity', 0.35)
-        .on('end', pulseRing);
-    }
-    pulseRing();
+    (function pulseFn() {
+      pulse.transition().duration(1400).ease(d3.easeSinInOut)
+        .attr('r', d => d.r + 18).attr('stroke-opacity', 0.05)
+        .transition().duration(1400).ease(d3.easeSinInOut)
+        .attr('r', d => d.r + 8).attr('stroke-opacity', 0.4)
+        .on('end', pulseFn);
+    })();
 
     // Main circle
-    node.append('circle')
+    nodeG.append('circle')
       .attr('r', d => d.r)
-      .attr('fill', d => d.main ? 'url(#node-grad-main)' : '#0f172a')
-      .attr('stroke', d => d.main ? '#93c5fd' : '#3b82f6')
-      .attr('stroke-width', d => d.main ? 2 : 1.5)
-      .attr('filter', 'url(#glow)');
+      .attr('fill', d => d.type === 'root' ? '#1a3a5c' : '#0a1628')
+      .attr('stroke', d => d.color)
+      .attr('stroke-width', d => d.type === 'root' ? 2.5 : d.type === 'area' ? 2 : 1.5)
+      .attr('filter', 'url(#tg-glow)');
 
-    // Abbreviation label inside circle
-    node.append('text')
-      .attr('text-anchor', 'middle')
-      .attr('dominant-baseline', 'central')
-      .attr('y', -4)
-      .attr('font-size', d => d.main ? '9px' : '7.5px')
-      .attr('font-family', 'JetBrains Mono, monospace')
-      .attr('font-weight', '700')
-      .attr('fill', d => d.main ? '#bfdbfe' : '#93c5fd')
+    // Abbr
+    nodeG.append('text')
+      .attr('text-anchor', 'middle').attr('dominant-baseline', 'central')
+      .attr('font-size', d => d.type === 'root' ? '11px' : d.type === 'area' ? '9px' : '7px')
+      .attr('font-family', 'JetBrains Mono, monospace').attr('font-weight', '700')
+      .attr('fill', d => d.color)
       .text(d => d.abbr);
 
-    // Full label below circle
-    node.each(function(d) {
-      const el = d3.select(this);
+    // Label below
+    nodeG.each(function (d) {
       const lines = d.label.split('\n');
-      const yStart = d.r + 10;
-      const textEl = el.append('text')
+      const t = d3.select(this).append('text')
         .attr('text-anchor', 'middle')
-        .attr('font-size', '6.5px')
+        .attr('font-size', d.type === 'tag' ? '6px' : '7.5px')
         .attr('font-family', 'Inter, sans-serif')
-        .attr('font-weight', '500')
         .attr('fill', '#64748b');
-
-      lines.forEach((line, i) => {
-        textEl.append('tspan')
-          .attr('x', 0)
-          .attr('dy', i === 0 ? yStart : '1.15em')
-          .text(line);
+      lines.forEach((l, i) => {
+        t.append('tspan').attr('x', 0).attr('dy', i === 0 ? d.r + 11 : '1.2em').text(l);
       });
     });
 
-    // Hover highlight
-    node.on('mouseenter', function(event, d) {
+    // Hover
+    nodeG.on('mouseenter', function (_, d) {
       d3.select(this).select('circle:nth-of-type(2)')
-        .transition().duration(200)
-        .attr('stroke', '#60a5fa')
-        .attr('stroke-width', 2.5);
-    }).on('mouseleave', function(event, d) {
+        .transition().duration(150).attr('stroke-width', d.type === 'root' ? 3.5 : 2.5);
+    }).on('mouseleave', function (_, d) {
       d3.select(this).select('circle:nth-of-type(2)')
-        .transition().duration(200)
-        .attr('stroke', d.main ? '#93c5fd' : '#3b82f6')
-        .attr('stroke-width', d.main ? 2 : 1.5);
+        .transition().duration(150).attr('stroke-width', d.type === 'root' ? 2.5 : d.type === 'area' ? 2 : 1.5);
     });
 
     sim.on('tick', () => {
-      link
-        .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
-        .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
-      node.attr('transform', d => `translate(${
-        Math.max(d.r + 4, Math.min(W - d.r - 4, d.x))
-      },${
-        Math.max(d.r + 4, Math.min(H - d.r - 4, d.y))
-      })`);
+      linkEl.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+             .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      nodeG.attr('transform', d =>
+        `translate(${Math.max(d.r+6, Math.min(W-d.r-6, d.x))},${Math.max(d.r+6, Math.min(H-d.r-6, d.y))})`);
     });
 
-    // Slow ambient drift after settling
-    setTimeout(() => sim.alphaDecay(0.015), 2000);
+    setTimeout(() => sim.alphaDecay(0.018), 2500);
   }
 
-  // Load D3 then init
-  if (!window.d3) {
+  function tryLoad() {
+    if (typeof d3 !== 'undefined') { init(); return; }
     const s = document.createElement('script');
     s.src = 'https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js';
-    s.onload = initGraph;
+    s.onload = init;
     document.head.appendChild(s);
-  } else {
-    initGraph();
   }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tryLoad);
+  else tryLoad();
+})();
 </script> <section class="py-24 relative"> <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-700/60 to-transparent"></div> <div class="max-w-6xl mx-auto px-6"> <div class="mb-12" data-aos="fade-up"> <p class="text-blue-400 font-mono text-sm font-medium mb-2">// recent</p> <h2 class="text-3xl sm:text-4xl font-bold text-white">Recent Updates</h2> </div> <div class="grid lg:grid-cols-3 gap-8"> <!-- Left: blog post feed (2/3 width) --> <div class="lg:col-span-2 space-y-5"> <a href="/NgocDuong.github.io/blog/repository-harness-ai-research" class="group block bg-[#0a1628] border border-slate-800/60 hover:border-blue-500/40 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/10" data-aos="fade-up" data-aos-delay="0"> <div class="flex items-center justify-between mb-3"> <time class="text-xs font-mono text-slate-600">May 1, 2026</time> <div class="flex gap-1.5 flex-wrap justify-end"> <span class="text-xs px-2 py-0.5 rounded-full border font-medium bg-blue-500/10 text-blue-400 border-blue-500/20"> Research </span><span class="text-xs px-2 py-0.5 rounded-full border font-medium bg-slate-700/50 text-slate-400 border-slate-600/30"> Deep Learning </span> </div> </div> <h3 class="text-base font-semibold text-white group-hover:text-blue-200 transition-colors leading-snug mb-2"> Building a Repository Harness for AI Research </h3> <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">How I structured a reproducible code harness for deep learning experiments in medical imaging and fraud detection research.</p> <div class="flex items-center gap-1.5 mt-3 text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity font-medium">
 Read more
 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path> </svg> </div> </a><a href="/NgocDuong.github.io/blog/cookiecutter-vs-git-templates" class="group block bg-[#0a1628] border border-slate-800/60 hover:border-blue-500/40 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-blue-500/10" data-aos="fade-up" data-aos-delay="80"> <div class="flex items-center justify-between mb-3"> <time class="text-xs font-mono text-slate-600">Apr 10, 2026</time> <div class="flex gap-1.5 flex-wrap justify-end"> <span class="text-xs px-2 py-0.5 rounded-full border font-medium bg-slate-700/50 text-slate-400 border-slate-600/30"> Tooling </span><span class="text-xs px-2 py-0.5 rounded-full border font-medium bg-slate-700/50 text-slate-400 border-slate-600/30"> Python </span> </div> </div> <h3 class="text-base font-semibold text-white group-hover:text-blue-200 transition-colors leading-snug mb-2"> Cookiecutter vs Git Templates for Research Projects </h3> <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">Comparing two approaches for bootstrapping new AI research repositories: Cookiecutter and git template repos.</p> <div class="flex items-center gap-1.5 mt-3 text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity font-medium">

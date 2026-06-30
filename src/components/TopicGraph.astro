@@ -1,0 +1,204 @@
+---
+---
+
+<section id="topics" class="py-20 relative">
+  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent"></div>
+
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-10" data-aos="fade-up">
+      <p class="text-blue-400 font-mono text-sm font-medium mb-2">// research map</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white">Topic Focus</h2>
+      <p class="text-slate-400 mt-2 text-sm">Drag nodes to explore connections between research areas.</p>
+    </div>
+
+    <div data-aos="fade-up" data-aos-delay="100">
+      <div id="topic-graph-container" class="w-full rounded-2xl border border-slate-800/50 bg-[#06101f]/80 overflow-hidden" style="height: 460px;"></div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(function () {
+  const nodes = [
+    { id: 'center',    label: 'AI\nResearch',         abbr: 'AI',   r: 34, type: 'root',  color: '#93c5fd' },
+    { id: 'hc',        label: 'AI for\nHealthcare',   abbr: 'HC',   r: 26, type: 'area',  color: '#3b82f6' },
+    { id: 'fd',        label: 'Fraud\nDetection',     abbr: 'FD',   r: 26, type: 'area',  color: '#6366f1' },
+    { id: 'at',        label: 'Attention\nMechanisms',abbr: 'AT',   r: 24, type: 'area',  color: '#0ea5e9' },
+    { id: 'bd',        label: 'Benchmark\nDatasets',  abbr: 'BD',   r: 24, type: 'area',  color: '#8b5cf6' },
+    { id: 'mi',        label: 'Medical\nImaging',     abbr: 'MI',   r: 18, type: 'tag',   color: '#3b82f6' },
+    { id: 'mri',       label: 'MRI\nAnalysis',        abbr: 'MRI',  r: 18, type: 'tag',   color: '#3b82f6' },
+    { id: 'gnn',       label: 'Graph\nNeural Nets',   abbr: 'GNN',  r: 18, type: 'tag',   color: '#6366f1' },
+    { id: 'tr',        label: 'Transformers',         abbr: 'TR',   r: 16, type: 'tag',   color: '#0ea5e9' },
+    { id: 'mm',        label: 'Multimodal\nLearning', abbr: 'MM',   r: 18, type: 'tag',   color: '#0ea5e9' },
+    { id: 'phenspin',  label: 'PhenSPINE',            abbr: 'PS',   r: 16, type: 'tag',   color: '#8b5cf6' },
+    { id: 'eth',       label: 'Ethereum\nFraud',      abbr: 'ETH',  r: 16, type: 'tag',   color: '#6366f1' },
+  ];
+
+  const links = [
+    { source: 'center', target: 'hc',        w: 2.5 },
+    { source: 'center', target: 'fd',        w: 2.5 },
+    { source: 'center', target: 'at',        w: 2   },
+    { source: 'center', target: 'bd',        w: 2   },
+    { source: 'hc',     target: 'mi',        w: 1.5 },
+    { source: 'hc',     target: 'mri',       w: 1.5 },
+    { source: 'hc',     target: 'mm',        w: 1.5 },
+    { source: 'fd',     target: 'gnn',       w: 1.5 },
+    { source: 'fd',     target: 'eth',       w: 1.5 },
+    { source: 'at',     target: 'tr',        w: 1.5 },
+    { source: 'at',     target: 'mm',        w: 1   },
+    { source: 'bd',     target: 'phenspin',  w: 1.5 },
+    { source: 'bd',     target: 'mi',        w: 1   },
+    { source: 'gnn',    target: 'hc',        w: 1, dashed: true },
+    { source: 'mm',     target: 'bd',        w: 1, dashed: true },
+  ];
+
+  function init() {
+    if (typeof d3 === 'undefined') return;
+    const cont = document.getElementById('topic-graph-container');
+    if (!cont) return;
+    cont.innerHTML = '';
+    const W = cont.clientWidth, H = cont.clientHeight || 460;
+
+    const svg = d3.select(cont).append('svg').attr('width', W).attr('height', H);
+    const defs = svg.append('defs');
+
+    // glow
+    const f = defs.append('filter').attr('id', 'tg-glow');
+    f.append('feGaussianBlur').attr('stdDeviation', '3.5').attr('result', 'b');
+    const m = f.append('feMerge');
+    m.append('feMergeNode').attr('in', 'b');
+    m.append('feMergeNode').attr('in', 'SourceGraphic');
+
+    // gradient per area node
+    nodes.filter(n => n.type !== 'tag').forEach(n => {
+      const g = defs.append('radialGradient').attr('id', `tg-g-${n.id}`);
+      g.append('stop').attr('offset', '0%').attr('stop-color', n.color).attr('stop-opacity', 0.35);
+      g.append('stop').attr('offset', '100%').attr('stop-color', n.color).attr('stop-opacity', 0.05);
+    });
+
+    const ns = nodes.map(d => ({ ...d }));
+    const ls = links.map(d => ({ ...d }));
+
+    const sim = d3.forceSimulation(ns)
+      .force('link', d3.forceLink(ls).id(d => d.id)
+        .distance(d => {
+          const s = ns.find(n => n.id === (d.source.id || d.source));
+          if (s && s.type === 'root') return 130;
+          if (s && s.type === 'area') return 80;
+          return 70;
+        }).strength(0.7))
+      .force('charge', d3.forceManyBody().strength(n => n.type === 'root' ? -700 : n.type === 'area' ? -350 : -180))
+      .force('center', d3.forceCenter(W / 2, H / 2))
+      .force('collision', d3.forceCollide().radius(n => n.r + 16));
+
+    // Links
+    const linkEl = svg.append('g').selectAll('line').data(ls).join('line')
+      .attr('stroke', d => {
+        const s = ns.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        return s ? s.color + (d.dashed ? '40' : '70') : '#3b82f650';
+      })
+      .attr('stroke-width', d => d.w || 1.5)
+      .attr('stroke-dasharray', d => d.dashed ? '5 4' : '6 4')
+      .attr('stroke-dashoffset', 0);
+
+    // Animate dash
+    function dash() {
+      linkEl.filter(d => !d.dashed)
+        .transition().duration(2400).ease(d3.easeLinear)
+        .attr('stroke-dashoffset', -18)
+        .on('end', function () { d3.select(this).attr('stroke-dashoffset', 0); dash.call(this); });
+    }
+    dash();
+
+    // Nodes
+    const nodeG = svg.append('g').selectAll('g').data(ns).join('g')
+      .style('cursor', 'grab')
+      .call(d3.drag()
+        .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+        .on('drag',  (e, d) => { d.fx = e.x; d.fy = e.y; })
+        .on('end',   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
+
+    // Glow halo
+    nodeG.append('circle')
+      .attr('r', d => d.r + 10)
+      .attr('fill', d => d.type !== 'tag' ? `url(#tg-g-${d.id})` : 'none')
+      .attr('stroke', d => d.color)
+      .attr('stroke-width', 0)
+      .attr('filter', 'url(#tg-glow)');
+
+    // Pulse ring for root
+    const pulse = nodeG.filter(d => d.type === 'root').append('circle')
+      .attr('r', d => d.r + 8)
+      .attr('fill', 'none')
+      .attr('stroke', '#93c5fd')
+      .attr('stroke-width', 1.5)
+      .attr('stroke-opacity', 0.4);
+
+    (function pulseFn() {
+      pulse.transition().duration(1400).ease(d3.easeSinInOut)
+        .attr('r', d => d.r + 18).attr('stroke-opacity', 0.05)
+        .transition().duration(1400).ease(d3.easeSinInOut)
+        .attr('r', d => d.r + 8).attr('stroke-opacity', 0.4)
+        .on('end', pulseFn);
+    })();
+
+    // Main circle
+    nodeG.append('circle')
+      .attr('r', d => d.r)
+      .attr('fill', d => d.type === 'root' ? '#1a3a5c' : '#0a1628')
+      .attr('stroke', d => d.color)
+      .attr('stroke-width', d => d.type === 'root' ? 2.5 : d.type === 'area' ? 2 : 1.5)
+      .attr('filter', 'url(#tg-glow)');
+
+    // Abbr
+    nodeG.append('text')
+      .attr('text-anchor', 'middle').attr('dominant-baseline', 'central')
+      .attr('font-size', d => d.type === 'root' ? '11px' : d.type === 'area' ? '9px' : '7px')
+      .attr('font-family', 'JetBrains Mono, monospace').attr('font-weight', '700')
+      .attr('fill', d => d.color)
+      .text(d => d.abbr);
+
+    // Label below
+    nodeG.each(function (d) {
+      const lines = d.label.split('\n');
+      const t = d3.select(this).append('text')
+        .attr('text-anchor', 'middle')
+        .attr('font-size', d.type === 'tag' ? '6px' : '7.5px')
+        .attr('font-family', 'Inter, sans-serif')
+        .attr('fill', '#64748b');
+      lines.forEach((l, i) => {
+        t.append('tspan').attr('x', 0).attr('dy', i === 0 ? d.r + 11 : '1.2em').text(l);
+      });
+    });
+
+    // Hover
+    nodeG.on('mouseenter', function (_, d) {
+      d3.select(this).select('circle:nth-of-type(2)')
+        .transition().duration(150).attr('stroke-width', d.type === 'root' ? 3.5 : 2.5);
+    }).on('mouseleave', function (_, d) {
+      d3.select(this).select('circle:nth-of-type(2)')
+        .transition().duration(150).attr('stroke-width', d.type === 'root' ? 2.5 : d.type === 'area' ? 2 : 1.5);
+    });
+
+    sim.on('tick', () => {
+      linkEl.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+             .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      nodeG.attr('transform', d =>
+        `translate(${Math.max(d.r+6, Math.min(W-d.r-6, d.x))},${Math.max(d.r+6, Math.min(H-d.r-6, d.y))})`);
+    });
+
+    setTimeout(() => sim.alphaDecay(0.018), 2500);
+  }
+
+  function tryLoad() {
+    if (typeof d3 !== 'undefined') { init(); return; }
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js';
+    s.onload = init;
+    document.head.appendChild(s);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tryLoad);
+  else tryLoad();
+})();
+</script>
