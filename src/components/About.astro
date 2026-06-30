@@ -31,41 +31,23 @@ const skills = [
       <div data-aos="fade-up" data-aos-delay="100">
         <div class="space-y-4 text-slate-400 leading-relaxed mb-8">
           <p>
-            I am a Researcher at the
-            <a href="https://bailab.vn/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">
-              Business AI Lab
-            </a>
-            (National Economics University), supervised by
-            <a href="https://tvluong.wordpress.com/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">
-              Dr. Thien Van Luong</a>.
-            My research sits at the intersection of computer vision, deep learning, and real-world impact.
+            I am an undergraduate researcher at
+            <a href="https://bailab.vn/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">Business AI Lab</a>,
+            National Economics University, working on
+            <span class="text-slate-200 font-medium">AI for Healthcare</span> and
+            <span class="text-slate-200 font-medium">Graph-based Fraud Detection</span> under
+            <a href="https://tvluong.wordpress.com/" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">Dr. Thien Van Luong</a>.
           </p>
           <p>
-            I build attention-based deep learning frameworks for spine pathology diagnosis on MRI data,
-            develop benchmark datasets for fair clinical AI evaluation, and investigate
-            graph-based fraud detection on blockchain transaction networks.
-          </p>
-          <p>
-            I'm also a
-            <span class="text-slate-200 font-medium">reviewer</span> for CITA 2026 & FJCAI 2026,
-            a <span class="text-slate-200 font-medium">mentor</span> in the Fulbright STEM Mentorship Program,
-            and a <span class="text-slate-200 font-medium">Teaching Assistant</span> for the Machine Learning course at NEU.
+            I am actively seeking <span class="text-slate-200 font-medium">Research Assistant</span> and
+            <span class="text-slate-200 font-medium">PhD opportunities</span> in machine learning, computer vision, or medical AI, starting 2027.
           </p>
         </div>
 
-        <!-- Research Interests -->
+        <!-- Research Interests Graph -->
         <div>
           <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-3">Research Interests</h3>
-          <div class="flex flex-wrap gap-2">
-            {
-              interests.map((i) => (
-                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm font-medium hover:bg-blue-500/20 hover:border-blue-500/40 transition-colors">
-                  <span>{i.icon}</span>
-                  {i.label}
-                </span>
-              ))
-            }
-          </div>
+          <div id="research-graph" class="w-full h-56 rounded-xl overflow-hidden relative"></div>
         </div>
       </div>
 
@@ -115,6 +97,7 @@ const skills = [
 </section>
 
 <script is:inline>
+  // Skill bars
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -130,4 +113,197 @@ const skills = [
 
   const aboutSection = document.getElementById('about');
   if (aboutSection) observer.observe(aboutSection);
+
+  // Research interest graph (D3 force-directed)
+  function initGraph() {
+    const container = document.getElementById('research-graph');
+    if (!container || typeof d3 === 'undefined') return;
+
+    const W = container.clientWidth;
+    const H = container.clientHeight;
+
+    const nodes = [
+      { id: 'center', label: 'AI\nResearch', abbr: 'AI', r: 28, main: true },
+      { id: 'health', label: 'AI for\nHealthcare', abbr: 'HC', r: 22 },
+      { id: 'imaging', label: 'Medical\nImaging', abbr: 'MI', r: 22 },
+      { id: 'fraud', label: 'Fraud\nDetection', abbr: 'FD', r: 22 },
+      { id: 'gnn', label: 'Graph Neural\nNetworks', abbr: 'GNN', r: 22 },
+      { id: 'multimodal', label: 'Multimodal\nLearning', abbr: 'ML', r: 22 },
+    ];
+
+    const links = [
+      { source: 'center', target: 'health' },
+      { source: 'center', target: 'imaging' },
+      { source: 'center', target: 'fraud' },
+      { source: 'center', target: 'gnn' },
+      { source: 'center', target: 'multimodal' },
+      { source: 'health', target: 'imaging' },
+      { source: 'health', target: 'multimodal' },
+      { source: 'fraud', target: 'gnn' },
+    ];
+
+    container.innerHTML = '';
+    const svg = d3.select(container)
+      .append('svg')
+      .attr('width', W)
+      .attr('height', H)
+      .style('background', 'transparent');
+
+    // Defs: glow filter + gradient
+    const defs = svg.append('defs');
+
+    const glow = defs.append('filter').attr('id', 'glow');
+    glow.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'coloredBlur');
+    const feMerge = glow.append('feMerge');
+    feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+    feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+
+    const grad = defs.append('radialGradient').attr('id', 'node-grad');
+    grad.append('stop').attr('offset', '0%').attr('stop-color', '#60a5fa');
+    grad.append('stop').attr('offset', '100%').attr('stop-color', '#2563eb');
+
+    const gradMain = defs.append('radialGradient').attr('id', 'node-grad-main');
+    gradMain.append('stop').attr('offset', '0%').attr('stop-color', '#93c5fd');
+    gradMain.append('stop').attr('offset', '100%').attr('stop-color', '#1d4ed8');
+
+    const sim = d3.forceSimulation(nodes)
+      .force('link', d3.forceLink(links).id(d => d.id).distance(90).strength(0.6))
+      .force('charge', d3.forceManyBody().strength(-220))
+      .force('center', d3.forceCenter(W / 2, H / 2))
+      .force('collision', d3.forceCollide().radius(d => d.r + 18));
+
+    // Animated gradient edge
+    const linkGrad = defs.append('linearGradient').attr('id', 'link-grad').attr('gradientUnits', 'userSpaceOnUse');
+    linkGrad.append('stop').attr('offset', '0%').attr('stop-color', '#3b82f6').attr('stop-opacity', 0.5);
+    linkGrad.append('stop').attr('offset', '100%').attr('stop-color', '#6366f1').attr('stop-opacity', 0.1);
+
+    const link = svg.append('g')
+      .selectAll('line')
+      .data(links)
+      .join('line')
+      .attr('stroke', 'url(#link-grad)')
+      .attr('stroke-width', 1.5)
+      .attr('stroke-dasharray', '5 4')
+      .attr('stroke-dashoffset', 0);
+
+    // Animate dash offset
+    function animateDash() {
+      link.transition()
+        .duration(2000)
+        .ease(d3.easeLinear)
+        .attr('stroke-dashoffset', -18)
+        .on('end', () => {
+          link.attr('stroke-dashoffset', 0);
+          animateDash();
+        });
+    }
+    animateDash();
+
+    const node = svg.append('g')
+      .selectAll('g')
+      .data(nodes)
+      .join('g')
+      .style('cursor', 'pointer')
+      .call(
+        d3.drag()
+          .on('start', (event, d) => { if (!event.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+          .on('drag', (event, d) => { d.fx = event.x; d.fy = event.y; })
+          .on('end', (event, d) => { if (!event.active) sim.alphaTarget(0); d.fx = null; d.fy = null; })
+      );
+
+    // Outer glow ring (pulsing for center)
+    const outerRing = node.append('circle')
+      .attr('r', d => d.r + 6)
+      .attr('fill', 'none')
+      .attr('stroke', d => d.main ? 'rgba(147,197,253,0.35)' : 'rgba(59,130,246,0.12)')
+      .attr('stroke-width', 1.5)
+      .attr('filter', 'url(#glow)');
+
+    // Pulse animation on center node ring
+    function pulseRing() {
+      outerRing.filter(d => d.main)
+        .transition().duration(1200).ease(d3.easeSinInOut)
+        .attr('r', d => d.r + 12).attr('stroke-opacity', 0.1)
+        .transition().duration(1200).ease(d3.easeSinInOut)
+        .attr('r', d => d.r + 6).attr('stroke-opacity', 0.35)
+        .on('end', pulseRing);
+    }
+    pulseRing();
+
+    // Main circle
+    node.append('circle')
+      .attr('r', d => d.r)
+      .attr('fill', d => d.main ? 'url(#node-grad-main)' : '#0f172a')
+      .attr('stroke', d => d.main ? '#93c5fd' : '#3b82f6')
+      .attr('stroke-width', d => d.main ? 2 : 1.5)
+      .attr('filter', 'url(#glow)');
+
+    // Abbreviation label inside circle
+    node.append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'central')
+      .attr('y', -4)
+      .attr('font-size', d => d.main ? '9px' : '7.5px')
+      .attr('font-family', 'JetBrains Mono, monospace')
+      .attr('font-weight', '700')
+      .attr('fill', d => d.main ? '#bfdbfe' : '#93c5fd')
+      .text(d => d.abbr);
+
+    // Full label below circle
+    node.each(function(d) {
+      const el = d3.select(this);
+      const lines = d.label.split('\n');
+      const yStart = d.r + 10;
+      const textEl = el.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '6.5px')
+        .attr('font-family', 'Inter, sans-serif')
+        .attr('font-weight', '500')
+        .attr('fill', '#64748b');
+
+      lines.forEach((line, i) => {
+        textEl.append('tspan')
+          .attr('x', 0)
+          .attr('dy', i === 0 ? yStart : '1.15em')
+          .text(line);
+      });
+    });
+
+    // Hover highlight
+    node.on('mouseenter', function(event, d) {
+      d3.select(this).select('circle:nth-of-type(2)')
+        .transition().duration(200)
+        .attr('stroke', '#60a5fa')
+        .attr('stroke-width', 2.5);
+    }).on('mouseleave', function(event, d) {
+      d3.select(this).select('circle:nth-of-type(2)')
+        .transition().duration(200)
+        .attr('stroke', d.main ? '#93c5fd' : '#3b82f6')
+        .attr('stroke-width', d.main ? 2 : 1.5);
+    });
+
+    sim.on('tick', () => {
+      link
+        .attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+        .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      node.attr('transform', d => `translate(${
+        Math.max(d.r + 4, Math.min(W - d.r - 4, d.x))
+      },${
+        Math.max(d.r + 4, Math.min(H - d.r - 4, d.y))
+      })`);
+    });
+
+    // Slow ambient drift after settling
+    setTimeout(() => sim.alphaDecay(0.015), 2000);
+  }
+
+  // Load D3 then init
+  if (!window.d3) {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js';
+    s.onload = initGraph;
+    document.head.appendChild(s);
+  } else {
+    initGraph();
+  }
 </script>

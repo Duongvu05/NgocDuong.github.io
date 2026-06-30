@@ -1,41 +1,37 @@
 ---
 const areas = [
   {
-    icon: '🏥',
+    abbr: 'HC',
     title: 'AI for Healthcare',
     color: 'from-blue-600/20 to-cyan-600/10',
     border: 'border-blue-500/20 hover:border-blue-500/50',
-    glow: 'group-hover:shadow-blue-500/10',
     tags: ['Medical Imaging', 'MRI Analysis', 'Clinical AI'],
     description:
       'Multimodal deep learning frameworks for spine pathology diagnosis (Pfirrmann grading) on MRI sequences. Building benchmark datasets for standardized evaluation of clinical AI systems.',
   },
   {
-    icon: '🔗',
+    abbr: 'FD',
     title: 'Fraud Detection',
     color: 'from-indigo-600/20 to-blue-600/10',
     border: 'border-indigo-500/20 hover:border-indigo-500/50',
-    glow: 'group-hover:shadow-indigo-500/10',
     tags: ['Blockchain', 'Graph Neural Networks', 'Ethereum'],
     description:
       'Structural temporal graph networks for detecting fraudulent transactions on Ethereum. Feature selection techniques and dynamic graph representation for financial security.',
   },
   {
-    icon: '🧠',
+    abbr: 'AT',
     title: 'Attention Mechanisms',
     color: 'from-sky-600/20 to-blue-600/10',
     border: 'border-sky-500/20 hover:border-sky-500/50',
-    glow: 'group-hover:shadow-sky-500/10',
     tags: ['Transformers', 'Cross-Attention', 'Multi-scale'],
     description:
       'Designing cross-sequence attention architectures that fuse multi-scale visual features across different MRI modalities for robust pathology localization and grading.',
   },
   {
-    icon: '📊',
+    abbr: 'BD',
     title: 'Benchmark Datasets',
     color: 'from-blue-600/20 to-violet-600/10',
     border: 'border-blue-500/20 hover:border-violet-500/50',
-    glow: 'group-hover:shadow-violet-500/10',
     tags: ['Dataset Curation', 'Annotation', 'Evaluation'],
     description:
       'Creating standardized, well-annotated datasets (PhenSPINE) to enable fair and reproducible comparison of deep learning methods on spine MRI clinical data.',
@@ -44,7 +40,6 @@ const areas = [
 ---
 
 <section id="research" class="py-24 relative">
-  <!-- Section divider -->
   <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent"></div>
 
   <div class="max-w-6xl mx-auto px-6">
@@ -63,10 +58,12 @@ const areas = [
           <div
             data-aos="fade-up"
             data-aos-delay={i * 80}
-            class={`group relative p-6 rounded-2xl bg-gradient-to-br ${area.color} border ${area.border} transition-all duration-300 hover:shadow-xl ${area.glow} cursor-default`}
+            class={`group relative p-6 rounded-2xl bg-gradient-to-br ${area.color} border ${area.border} transition-all duration-300 hover:shadow-xl cursor-default`}
           >
             <div class="flex items-start gap-4 mb-4">
-              <div class="text-3xl flex-shrink-0">{area.icon}</div>
+              <div class="w-10 h-10 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
+                <span class="text-blue-300 text-xs font-bold font-mono">{area.abbr}</span>
+              </div>
               <div>
                 <h3 class="font-bold text-white text-lg leading-tight">{area.title}</h3>
                 <div class="flex flex-wrap gap-1.5 mt-2">
@@ -79,7 +76,6 @@ const areas = [
               </div>
             </div>
             <p class="text-slate-400 text-sm leading-relaxed">{area.description}</p>
-            <!-- Hover glow corner -->
             <div class="absolute top-0 right-0 w-24 h-24 rounded-full bg-blue-400/5 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
           </div>
         ))

@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="The motivation behind PhenSPINE - a standardized benchmark dataset for spine pathology diagnosis on MRI, presented at CITA 2026."><title>PhenSPINE: Why Spine AI Needs a Standardized Benchmark — Duong Ngoc Vu</title><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"><link rel="stylesheet" href="/NgocDuong.github.io/_astro/_slug_.BeYC2OvN.css">
+<style>.prose-custom{color:#94a3b8;line-height:1.8}.prose-custom h2{color:#f1f5f9;font-size:1.25rem;font-weight:700;margin-top:2rem;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid #1e293b}.prose-custom h3{color:#e2e8f0;font-size:1.05rem;font-weight:600;margin-top:1.5rem;margin-bottom:.5rem}.prose-custom p{margin-bottom:1.2rem}.prose-custom a{color:#60a5fa;text-decoration:underline;text-underline-offset:3px}.prose-custom a:hover{color:#93c5fd}.prose-custom strong{color:#e2e8f0;font-weight:600}.prose-custom ul,.prose-custom ol{margin:.75rem 0 1rem 1.25rem;space-y:.4rem}.prose-custom li{margin-bottom:.35rem}.prose-custom code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:.15em .4em;font-size:.875em;color:#60a5fa;font-family:JetBrains Mono,monospace}.prose-custom pre{background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:1.25rem;overflow-x:auto;margin:1.25rem 0}.prose-custom pre code{background:none;border:none;padding:0;color:#94a3b8;font-size:.85rem}.prose-custom blockquote{border-left:3px solid #3b82f6;padding-left:1rem;margin:1.25rem 0;color:#64748b;font-style:italic}
+</style></head> <body class="bg-[#020617] text-slate-100 font-sans antialiased overflow-x-hidden">  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"> <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between"> <a href="#hero" class="flex items-center gap-3 group"> <div class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/60 transition-shadow">
+DV
+</div> <span class="font-semibold text-slate-200 hidden sm:block group-hover:text-white transition-colors">
+Duong Ngoc Vu
+</span> </a> <nav class="hidden md:flex items-center gap-1"> <a href="/#about" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> About </a><a href="/#research" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Research </a><a href="/#publications" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Publications </a><a href="/#experience" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Experience </a><a href="/#awards" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Awards </a><a href="/NgocDuong.github.io/blog" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Blog </a><a href="/#contact" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Contact </a> </nav> <a href="/NgocDuong.github.io/cv.pdf" target="_blank" class="hidden md:flex items-center gap-2 px-4 py-2 border border-blue-500/50 text-blue-400 text-sm rounded-lg hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-200 font-medium"> <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path> </svg>
+CV
+</a> <button id="menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div> <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800/60 bg-[#020617]/95 backdrop-blur-xl px-6 py-4"> <a href="/#about" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> About </a><a href="/#research" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Research </a><a href="/#publications" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Publications </a><a href="/#experience" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Experience </a><a href="/#awards" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Awards </a><a href="/NgocDuong.github.io/blog" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Blog </a><a href="/#contact" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Contact </a> </div> </header> <script>
+  const navbar = document.getElementById('navbar');
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      navbar.classList.add('bg-[#020617]/90', 'backdrop-blur-xl', 'border-b', 'border-slate-800/60', 'shadow-xl', 'shadow-black/20');
+    } else {
+      navbar.classList.remove('bg-[#020617]/90', 'backdrop-blur-xl', 'border-b', 'border-slate-800/60', 'shadow-xl', 'shadow-black/20');
+    }
+  });
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+  });
+</script> <main class="pt-28 pb-24 min-h-screen"> <div class="max-w-2xl mx-auto px-6"> <!-- Back --> <a href="/NgocDuong.github.io/blog" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-blue-400 transition-colors mb-10 group"> <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path> </svg>
+All posts
+</a> <!-- Header --> <header class="mb-10"> <div class="flex flex-wrap gap-1.5 mb-4"> <span class="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400"> Research </span><span class="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400"> Medical Imaging </span><span class="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400"> Benchmark </span><span class="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400"> Healthcare </span> </div> <h1 class="text-2xl sm:text-3xl font-bold text-white leading-snug mb-4"> PhenSPINE: Why Spine AI Needs a Standardized Benchmark </h1> <div class="flex items-center gap-3 text-sm text-slate-500"> <span>Duong Ngoc Vu</span> <span class="text-slate-700">·</span> <time class="font-mono"> January 15, 2026 </time> </div> </header> <div class="h-px bg-gradient-to-r from-blue-500/30 via-blue-500/10 to-transparent mb-10"></div> <!-- Content --> <article class="prose-custom"> <p>Spine pathology diagnosis from MRI is a clinically important task, yet the AI research community has struggled with a fundamental problem: <strong>there is no agreed-upon benchmark</strong>.</p>
+<h2 id="the-current-state">The Current State</h2>
+<p>Most papers on automated Pfirrmann grading (a 5-level scale for intervertebral disc degeneration) report results on private, institution-specific datasets. This makes it nearly impossible to fairly compare methods or know which one is actually best.</p>
+<p>The consequence? Researchers keep solving the same problem in isolation, and clinicians have no reliable guidance on which tool to trust.</p>
+<h2 id="introducing-phenspine">Introducing PhenSPINE</h2>
+<p>PhenSPINE is a standardized benchmark we developed at Business AI Lab that addresses this gap. It provides:</p>
+<ul>
+<li><strong>Curated MRI data</strong> with multiple sequences (T1, T2, STIR)</li>
+<li><strong>Standardized annotations</strong> reviewed by radiologists</li>
+<li><strong>Fixed train/val/test splits</strong> so comparisons are apples-to-apples</li>
+<li><strong>An evaluation framework</strong> with agreed-upon metrics</li>
+</ul>
+<h2 id="what-makes-a-good-benchmark">What Makes a Good Benchmark?</h2>
+<p>Building PhenSPINE taught me that a good medical imaging benchmark needs more than just data:</p>
+<ol>
+<li><strong>Annotation protocol</strong> - radiologists need clear, unambiguous labeling guidelines</li>
+<li><strong>Inter-rater agreement</strong> - at least two annotators per case, with disagreement resolution</li>
+<li><strong>Diverse cases</strong> - different scanners, field strengths, patient demographics</li>
+<li><strong>Public leaderboard</strong> - so the community can track progress over time</li>
+</ol>
+<h2 id="impact">Impact</h2>
+<p>Since presenting PhenSPINE at CITA 2026, we’ve had interest from several research groups who want to evaluate their methods on it. Standardized benchmarks are what move a research field forward - we’re excited to contribute one to spine AI.</p>
+<p>The dataset details are in the <a href="/publications">paper</a>.</p> </article> </div> </main> <footer class="border-t border-slate-800/60 py-8"> <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4"> <div class="flex items-center gap-3"> <div class="w-7 h-7 rounded-md bg-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-md shadow-blue-500/30">
+DV
+</div> <span class="text-slate-500 text-sm">Duong Ngoc Vu</span> </div> <p class="text-slate-600 text-sm">
+&copy; 2026 · Built with
+<span class="text-blue-500">Astro</span> &
+<span class="text-blue-500">Tailwind CSS</span> </p> <div class="flex items-center gap-4"> <a href="https://github.com/Duongvu05" target="_blank" class="text-slate-600 hover:text-blue-400 transition-colors text-sm">GitHub</a> <a href="https://www.linkedin.com/in/ngoc-duong-47a058292/" target="_blank" class="text-slate-600 hover:text-blue-400 transition-colors text-sm">LinkedIn</a> <a href="mailto:duongvn.bai@st.neu.edu.vn" class="text-slate-600 hover:text-blue-400 transition-colors text-sm">Email</a> </div> </div> </footer>  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script> <script>
+      AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60 });
+    </script> </body> </html> 

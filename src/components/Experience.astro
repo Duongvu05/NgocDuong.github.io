@@ -1,12 +1,12 @@
 ---
 const experience = [
   {
-    type: 'work',
     title: 'Researcher (On-site)',
     org: 'Business AI Lab, National Economics University',
     orgUrl: 'https://bailab.vn/',
     period: 'Sep 2024 – Present',
-    icon: '🔬',
+    logoText: 'BAI',
+    logoColor: 'bg-blue-600/20 border-blue-500/40 text-blue-300',
     bullets: [
       'Research on multimodal AI for medical imaging and healthcare diagnosis.',
       'Develop attention-based deep learning frameworks and benchmark datasets.',
@@ -17,22 +17,22 @@ const experience = [
 
 const education = [
   {
-    type: 'edu',
     title: 'BSc Data Science in Economics and Business',
     org: 'National Economics University',
     period: 'Sep 2023 – May 2027',
-    icon: '🎓',
+    logoText: 'NEU',
+    logoColor: 'bg-indigo-600/20 border-indigo-500/40 text-indigo-300',
     bullets: [
       'GPA: 3.7/4.0',
       'Supervised by Dr. Thien Van Luong at Business AI Lab.',
     ],
   },
   {
-    type: 'edu',
     title: 'High School Diploma — Social Sciences Gifted Program',
     org: 'Chu Van An National High School for the Gifted',
     period: 'Sep 2020 – May 2023',
-    icon: '📚',
+    logoText: 'CVA',
+    logoColor: 'bg-indigo-600/20 border-indigo-500/40 text-indigo-300',
     bullets: [],
   },
 ];
@@ -52,83 +52,68 @@ const education = [
 
       <!-- Experience -->
       <div>
-        <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-6" data-aos="fade-up">
-          Work Experience
-        </h3>
+        <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-6" data-aos="fade-up">Work Experience</h3>
         <div class="relative">
-          <div class="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/60 via-blue-500/20 to-transparent"></div>
+          <div class="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-blue-500/60 via-blue-500/20 to-transparent"></div>
           <div class="space-y-8">
-            {
-              experience.map((item, i) => (
-                <div class="relative pl-12" data-aos="fade-up" data-aos-delay={i * 100}>
-                  <!-- Dot -->
-                  <div class="absolute left-0 top-1 w-8 h-8 rounded-full bg-[#0f172a] border-2 border-blue-500 flex items-center justify-center text-sm shadow-lg shadow-blue-500/20">
-                    {item.icon}
-                  </div>
-                  <div class="bg-[#0f172a] border border-slate-800/60 rounded-xl p-5 hover:border-blue-500/20 transition-colors">
-                    <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
-                      <h4 class="font-bold text-white">{item.title}</h4>
-                      <span class="text-xs font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full flex-shrink-0">
-                        {item.period}
-                      </span>
-                    </div>
-                    <a href={item.orgUrl} target="_blank" class="text-sm text-blue-400 hover:text-blue-300 transition-colors mb-3 inline-block">
-                      {item.org}
-                    </a>
-                    {item.bullets.length > 0 && (
-                      <ul class="space-y-1.5 mt-3">
-                        {item.bullets.map(b => (
-                          <li class="flex items-start gap-2 text-sm text-slate-400">
-                            <span class="text-blue-500 mt-1.5 flex-shrink-0">▸</span>
-                            {b}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
+            {experience.map((item, i) => (
+              <div class="relative pl-14" data-aos="fade-up" data-aos-delay={i * 100}>
+                <div class={`absolute left-0 top-1 w-10 h-10 rounded-xl border-2 flex items-center justify-center shadow-lg ${item.logoColor}`}>
+                  <span class="text-xs font-bold font-mono">{item.logoText}</span>
                 </div>
-              ))
-            }
+                <div class="bg-[#0f172a] border border-slate-800/60 rounded-xl p-5 hover:border-blue-500/20 transition-colors">
+                  <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
+                    <h4 class="font-bold text-white">{item.title}</h4>
+                    <span class="text-xs font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full flex-shrink-0">{item.period}</span>
+                  </div>
+                  <a href={item.orgUrl} target="_blank" class="text-sm text-blue-400 hover:text-blue-300 transition-colors mb-3 inline-block">{item.org}</a>
+                  {item.bullets.length > 0 && (
+                    <ul class="space-y-1.5 mt-3">
+                      {item.bullets.map(b => (
+                        <li class="flex items-start gap-2 text-sm text-slate-400">
+                          <span class="text-blue-500 mt-1.5 flex-shrink-0">&#9658;</span>
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
       <!-- Education -->
       <div>
-        <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-6" data-aos="fade-up">
-          Education
-        </h3>
+        <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-6" data-aos="fade-up">Education</h3>
         <div class="relative">
-          <div class="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/60 via-indigo-500/20 to-transparent"></div>
+          <div class="absolute left-5 top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/60 via-indigo-500/20 to-transparent"></div>
           <div class="space-y-8">
-            {
-              education.map((item, i) => (
-                <div class="relative pl-12" data-aos="fade-up" data-aos-delay={i * 100}>
-                  <div class="absolute left-0 top-1 w-8 h-8 rounded-full bg-[#0f172a] border-2 border-indigo-500 flex items-center justify-center text-sm shadow-lg shadow-indigo-500/20">
-                    {item.icon}
-                  </div>
-                  <div class="bg-[#0f172a] border border-slate-800/60 rounded-xl p-5 hover:border-indigo-500/20 transition-colors">
-                    <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
-                      <h4 class="font-bold text-white leading-snug">{item.title}</h4>
-                      <span class="text-xs font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full flex-shrink-0">
-                        {item.period}
-                      </span>
-                    </div>
-                    <p class="text-sm text-indigo-400 mb-2">{item.org}</p>
-                    {item.bullets.length > 0 && (
-                      <ul class="space-y-1.5 mt-2">
-                        {item.bullets.map(b => (
-                          <li class="flex items-start gap-2 text-sm text-slate-400">
-                            <span class="text-indigo-500 mt-1.5 flex-shrink-0">▸</span>
-                            {b}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
+            {education.map((item, i) => (
+              <div class="relative pl-14" data-aos="fade-up" data-aos-delay={i * 100}>
+                <div class={`absolute left-0 top-1 w-10 h-10 rounded-xl border-2 flex items-center justify-center shadow-lg ${item.logoColor}`}>
+                  <span class="text-xs font-bold font-mono">{item.logoText}</span>
                 </div>
-              ))
-            }
+                <div class="bg-[#0f172a] border border-slate-800/60 rounded-xl p-5 hover:border-indigo-500/20 transition-colors">
+                  <div class="flex flex-wrap items-start justify-between gap-2 mb-1">
+                    <h4 class="font-bold text-white leading-snug">{item.title}</h4>
+                    <span class="text-xs font-mono text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full flex-shrink-0">{item.period}</span>
+                  </div>
+                  <p class="text-sm text-indigo-400 mb-2">{item.org}</p>
+                  {item.bullets.length > 0 && (
+                    <ul class="space-y-1.5 mt-2">
+                      {item.bullets.map(b => (
+                        <li class="flex items-start gap-2 text-sm text-slate-400">
+                          <span class="text-indigo-500 mt-1.5 flex-shrink-0">&#9658;</span>
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

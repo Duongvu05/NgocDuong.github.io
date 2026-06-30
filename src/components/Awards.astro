@@ -1,9 +1,7 @@
 ---
 const items = [
-  // Awards
   {
-    category: 'award',
-    icon: '🥇',
+    label: '1st',
     title: 'First Prize — Faculty-level Scientific Research Competition',
     org: 'Faculty of Data Science and AI, NEU',
     date: 'Jan 2026',
@@ -12,8 +10,7 @@ const items = [
     badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
   },
   {
-    category: 'award',
-    icon: '🌟',
+    label: 'Top',
     title: 'Outstanding Student Award — Faculty of Mathematical Economics, NEU 2025-2026',
     org: 'National Economics University',
     date: 'May 2026',
@@ -22,8 +19,7 @@ const items = [
     badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
   },
   {
-    category: 'award',
-    icon: '🏆',
+    label: 'Top',
     title: 'Outstanding Member of Business AI Lab',
     org: 'Business AI Lab, NEU',
     date: 'Dec 2025',
@@ -32,8 +28,7 @@ const items = [
     badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
   },
   {
-    category: 'award',
-    icon: '🎮',
+    label: 'Prize',
     title: 'Consolation Prize — Vietnam Student AI Olympics 2025 (Northern Region)',
     org: 'Vietnam Student AI Olympics',
     date: 'Dec 2025',
@@ -42,8 +37,7 @@ const items = [
     badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
   },
   {
-    category: 'award',
-    icon: '🚀',
+    label: '1st',
     title: 'First Prize — Biztech Hackathon 2025 (A.ignite)',
     org: 'Biztech Hackathon',
     date: 'Mar 2025',
@@ -51,10 +45,8 @@ const items = [
     badge: 'Award',
     badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
   },
-  // Professional
   {
-    category: 'professional',
-    icon: '📝',
+    label: 'Rev',
     title: 'Reviewer — CITA 2026',
     org: 'Conference on Information Technology and its Applications',
     date: 'Feb 2026',
@@ -63,8 +55,7 @@ const items = [
     badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
   },
   {
-    category: 'professional',
-    icon: '📝',
+    label: 'Rev',
     title: 'Reviewer — FJCAI 2026',
     org: 'National Conference on Artificial Intelligence',
     date: 'Jan 2026',
@@ -73,8 +64,7 @@ const items = [
     badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
   },
   {
-    category: 'professional',
-    icon: '🎓',
+    label: 'TA',
     title: 'Teaching Assistant — Machine Learning, NEU',
     org: 'National Economics University',
     date: 'Jan 2026',
@@ -83,8 +73,7 @@ const items = [
     badgeColor: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
   },
   {
-    category: 'professional',
-    icon: '🤝',
+    label: 'Mnt',
     title: 'Mentor — Fulbright STEM Mentorship Program',
     org: 'U.S. Embassy Hanoi',
     date: 'Feb–May 2025',
@@ -114,7 +103,9 @@ const items = [
             class={`relative p-5 rounded-xl bg-gradient-to-br ${item.color} border transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg group`}
           >
             <div class="flex items-start justify-between gap-2 mb-3">
-              <span class="text-2xl">{item.icon}</span>
+              <div class="w-8 h-8 rounded-md bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
+                <span class="text-xs font-bold font-mono text-slate-300">{item.label}</span>
+              </div>
               <span class={`text-xs px-2 py-0.5 rounded-full border font-medium ${item.badgeColor}`}>
                 {item.badge}
               </span>
