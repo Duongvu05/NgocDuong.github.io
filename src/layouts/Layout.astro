@@ -34,6 +34,11 @@ const {
     </div>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" is:inline></script>
     <script is:inline>
+      // Force reload when restored from bfcache so styles always load correctly
+      window.addEventListener('pageshow', function(e) {
+        if (e.persisted) window.location.reload();
+      });
+
       AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60 });
 
       // Global starfield

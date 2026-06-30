@@ -56,6 +56,11 @@ DV
 &copy; 2026 · Built with
 <span class="text-blue-500">Astro</span> &
 <span class="text-blue-500">Tailwind CSS</span> </p> <div class="flex items-center gap-4"> <a href="https://github.com/Duongvu05" target="_blank" class="text-slate-600 hover:text-blue-400 transition-colors text-sm">GitHub</a> <a href="https://www.linkedin.com/in/ngoc-duong-47a058292/" target="_blank" class="text-slate-600 hover:text-blue-400 transition-colors text-sm">LinkedIn</a> <a href="mailto:duongvn.bai@st.neu.edu.vn" class="text-slate-600 hover:text-blue-400 transition-colors text-sm">Email</a> </div> </div> </footer>  </div> <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script> <script>
+      // Force reload when restored from bfcache so styles always load correctly
+      window.addEventListener('pageshow', function(e) {
+        if (e.persisted) window.location.reload();
+      });
+
       AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60 });
 
       // Global starfield
