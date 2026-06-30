@@ -107,67 +107,11 @@ const stats = [
         </div>
       </div>
 
-      <!-- Right: Avatar with orbiting cards -->
-      <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
-        <div id="orbit-system" class="relative opacity-0 animate-fade-up flex items-center justify-center"
-          style="width:420px;height:420px;animation-delay:0.3s;animation-fill-mode:forwards;">
-
-          <!-- 3D orbit ring (ellipse for perspective) -->
-          <div class="absolute border border-blue-400/15 border-dashed pointer-events-none rounded-full"
-            style="width:340px;height:112px;"></div>
-
-          <!-- Avatar centered -->
-          <div class="relative flex-shrink-0" style="z-index:10;">
-            <div class="absolute -inset-4 rounded-full bg-gradient-to-br from-blue-600/20 to-indigo-600/10 blur-2xl"></div>
-            <div class="relative p-[3px] rounded-full bg-gradient-to-br from-blue-400 via-blue-600 to-indigo-700 shadow-2xl shadow-blue-500/40 animate-float">
-              <div class="p-[3px] rounded-full bg-[#020617]">
-                <img
-                  src={`${import.meta.env.BASE_URL}/avatar.jpg`}
-                  alt="Duong Ngoc Vu"
-                  class="w-44 h-44 sm:w-48 sm:h-48 rounded-full object-cover object-top"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- Orbiting cards (positioned by JS) -->
-          <div class="orbit-card absolute z-20 bg-[#0a1628]/90 border border-indigo-500/30 rounded-xl px-3 py-2 shadow-xl backdrop-blur-sm pointer-events-none"
-            data-orbit-speed="0.4">
-            <p class="text-xs text-slate-500 leading-none">Academic</p>
-            <p class="text-sm font-bold font-mono text-indigo-300 leading-tight mt-0.5">GPA 3.7</p>
-            <p class="text-xs text-slate-600">/ 4.0</p>
-          </div>
-
-          <div class="orbit-card absolute z-20 bg-[#0a1628]/90 border border-blue-500/30 rounded-xl px-3 py-2 shadow-xl backdrop-blur-sm pointer-events-none"
-            data-orbit-speed="0.4">
-            <p class="text-xs text-slate-500 leading-none">Published</p>
-            <p class="text-sm font-bold font-mono text-blue-300 leading-tight mt-0.5">2 Papers</p>
-            <p class="text-xs text-slate-600">CITA 2026</p>
-          </div>
-
-          <div class="orbit-card absolute z-20 bg-[#0a1628]/90 border border-violet-500/30 rounded-xl px-3 py-2 shadow-xl backdrop-blur-sm pointer-events-none"
-            data-orbit-speed="0.4">
-            <p class="text-xs text-slate-500 leading-none">Conference</p>
-            <p class="text-sm font-bold text-violet-300 leading-tight mt-0.5">Reviewer</p>
-            <p class="text-xs text-slate-600">×2 venues</p>
-          </div>
-
-          <div class="orbit-card absolute z-20 bg-[#0a1628]/90 border border-slate-600/40 rounded-xl px-3 py-2 shadow-xl backdrop-blur-sm pointer-events-none"
-            data-orbit-speed="0.4">
-            <div class="flex items-center gap-2">
-              <div class="w-5 h-5 rounded-md bg-blue-600/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
-                <svg class="w-3 h-3 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5"/>
-                </svg>
-              </div>
-              <div>
-                <p class="text-xs font-semibold text-white leading-none">AI Research</p>
-                <p class="text-xs text-slate-500 leading-none mt-0.5">NEU · 2024–</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
+      <!-- Right: Topic Focus graph -->
+      <div class="order-1 lg:order-2 opacity-0 animate-fade-up" style="animation-delay:0.3s;animation-fill-mode:forwards;">
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Research Interests</p>
+        <div id="hero-topic-graph" class="w-full rounded-2xl border border-slate-800/40 bg-[#06101f]/70 overflow-hidden" style="height:420px;"></div>
+        <p class="text-xs text-slate-700 mt-2 font-mono text-center">drag to explore · nodes are research areas</p>
       </div>
 
     </div>
@@ -184,45 +128,131 @@ const stats = [
 
 <script is:inline>
 (function () {
-  const system = document.getElementById('orbit-system');
-  if (!system) return;
+  const nodes = [
+    { id: 'center', label: 'AI\nResearch',        abbr: 'AI',  r: 30, type: 'root', color: '#93c5fd' },
+    { id: 'hc',     label: 'AI for\nHealthcare',  abbr: 'HC',  r: 23, type: 'area', color: '#3b82f6' },
+    { id: 'fd',     label: 'Fraud\nDetection',    abbr: 'FD',  r: 23, type: 'area', color: '#6366f1' },
+    { id: 'at',     label: 'Attention\nMechanisms',abbr:'AT',  r: 21, type: 'area', color: '#0ea5e9' },
+    { id: 'bd',     label: 'Benchmark\nDatasets', abbr: 'BD',  r: 21, type: 'area', color: '#8b5cf6' },
+    { id: 'mi',     label: 'Medical\nImaging',    abbr: 'MI',  r: 16, type: 'tag',  color: '#3b82f6' },
+    { id: 'gnn',    label: 'Graph\nNeural Nets',  abbr: 'GNN', r: 16, type: 'tag',  color: '#6366f1' },
+    { id: 'mm',     label: 'Multimodal\nLearning',abbr: 'MM',  r: 16, type: 'tag',  color: '#0ea5e9' },
+    { id: 'tr',     label: 'Transformers',        abbr: 'TR',  r: 14, type: 'tag',  color: '#0ea5e9' },
+    { id: 'ps',     label: 'PhenSPINE',           abbr: 'PS',  r: 14, type: 'tag',  color: '#8b5cf6' },
+    { id: 'eth',    label: 'Ethereum\nFraud',     abbr: 'ETH', r: 14, type: 'tag',  color: '#6366f1' },
+  ];
+  const links = [
+    { source: 'center', target: 'hc' },
+    { source: 'center', target: 'fd' },
+    { source: 'center', target: 'at' },
+    { source: 'center', target: 'bd' },
+    { source: 'hc', target: 'mi' },
+    { source: 'hc', target: 'mm' },
+    { source: 'fd', target: 'gnn' },
+    { source: 'fd', target: 'eth' },
+    { source: 'at', target: 'tr' },
+    { source: 'at', target: 'mm', dashed: true },
+    { source: 'bd', target: 'ps' },
+    { source: 'bd', target: 'mi', dashed: true },
+    { source: 'gnn', target: 'hc', dashed: true },
+  ];
 
-  const cards = Array.from(system.querySelectorAll('.orbit-card'));
-  const N = cards.length;
-  const RX = 170;   // horizontal radius
-  const RY = 56;    // vertical radius (perspective tilt ~18°)
-  const PERIOD = 20000; // ms per full orbit
+  function init() {
+    if (typeof d3 === 'undefined') return;
+    const cont = document.getElementById('hero-topic-graph');
+    if (!cont) return;
+    cont.innerHTML = '';
+    const W = cont.clientWidth, H = cont.clientHeight || 420;
 
-  // Evenly space cards around the orbit
-  const offsets = cards.map((_, i) => (i / N) * Math.PI * 2);
+    const svg = d3.select(cont).append('svg').attr('width', W).attr('height', H);
+    const defs = svg.append('defs');
+    const gf = defs.append('filter').attr('id', 'hg-glow');
+    gf.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'b');
+    const hm = gf.append('feMerge');
+    hm.append('feMergeNode').attr('in', 'b');
+    hm.append('feMergeNode').attr('in', 'SourceGraphic');
 
-  function animate(ts) {
-    const t = (ts / PERIOD) * Math.PI * 2;
+    const ns = nodes.map(d => ({ ...d }));
+    const ls = links.map(d => ({ ...d }));
 
-    cards.forEach((card, i) => {
-      const angle = t + offsets[i];
-      const x = Math.cos(angle) * RX;
-      const y = Math.sin(angle) * RY;
-      // z: +1 = closest to viewer (front), -1 = furthest (back)
-      const z = Math.sin(angle);
+    const sim = d3.forceSimulation(ns)
+      .force('link', d3.forceLink(ls).id(d => d.id)
+        .distance(d => {
+          const s = ns.find(n => n.id === (d.source.id || d.source));
+          return s && s.type === 'root' ? 120 : s && s.type === 'area' ? 75 : 60;
+        }).strength(0.65))
+      .force('charge', d3.forceManyBody().strength(n => n.type === 'root' ? -600 : n.type === 'area' ? -300 : -150))
+      .force('center', d3.forceCenter(W / 2, H / 2))
+      .force('collision', d3.forceCollide().radius(n => n.r + 14));
 
-      // Scale: front bigger, back smaller
-      const scale = 0.72 + 0.32 * (z + 1) / 2;
-      // Opacity: front visible, back faded
-      const opacity = 0.35 + 0.65 * (z + 1) / 2;
-      // z-index: front cards above avatar (z-index 10), back cards below
-      const zIdx = z > 0 ? 15 : 5;
+    const linkEl = svg.append('g').selectAll('line').data(ls).join('line')
+      .attr('stroke', d => {
+        const s = ns.find(n => n.id === (typeof d.source === 'object' ? d.source.id : d.source));
+        return s ? s.color + (d.dashed ? '35' : '60') : '#3b82f655';
+      })
+      .attr('stroke-width', d => d.dashed ? 1 : 1.5)
+      .attr('stroke-dasharray', '6 4')
+      .attr('stroke-dashoffset', 0);
 
-      card.style.left = '50%';
-      card.style.top  = '50%';
-      card.style.transform = `translate(calc(${x}px - 50%), calc(${y}px - 50%)) scale(${scale.toFixed(3)})`;
-      card.style.opacity = opacity.toFixed(3);
-      card.style.zIndex  = zIdx;
+    (function dash() {
+      linkEl.filter(d => !d.dashed).transition().duration(2200).ease(d3.easeLinear)
+        .attr('stroke-dashoffset', -18).on('end', dash);
+    })();
+
+    const nodeG = svg.append('g').selectAll('g').data(ns).join('g').style('cursor', 'grab')
+      .call(d3.drag()
+        .on('start', (e, d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+        .on('drag',  (e, d) => { d.fx = e.x; d.fy = e.y; })
+        .on('end',   (e, d) => { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
+
+    // Pulse halo for root
+    const pulseEl = nodeG.filter(d => d.type === 'root').append('circle')
+      .attr('r', d => d.r + 8).attr('fill', 'none')
+      .attr('stroke', '#93c5fd').attr('stroke-width', 1.5).attr('stroke-opacity', 0.4);
+    (function p() {
+      pulseEl.transition().duration(1300).ease(d3.easeSinInOut)
+        .attr('r', d => d.r + 18).attr('stroke-opacity', 0.06)
+        .transition().duration(1300).ease(d3.easeSinInOut)
+        .attr('r', d => d.r + 8).attr('stroke-opacity', 0.4).on('end', p);
+    })();
+
+    nodeG.append('circle').attr('r', d => d.r)
+      .attr('fill', d => d.type === 'root' ? '#1a3a5c' : '#0a1628')
+      .attr('stroke', d => d.color)
+      .attr('stroke-width', d => d.type === 'root' ? 2.5 : d.type === 'area' ? 2 : 1.5)
+      .attr('filter', 'url(#hg-glow)');
+
+    nodeG.append('text').attr('text-anchor', 'middle').attr('dominant-baseline', 'central')
+      .attr('font-size', d => d.type === 'root' ? '10px' : d.type === 'area' ? '8px' : '6.5px')
+      .attr('font-family', 'JetBrains Mono, monospace').attr('font-weight', '700')
+      .attr('fill', d => d.color).text(d => d.abbr);
+
+    nodeG.each(function (d) {
+      const lines = d.label.split('\n');
+      const t = d3.select(this).append('text').attr('text-anchor', 'middle')
+        .attr('font-size', d.type === 'tag' ? '5.5px' : '7px')
+        .attr('font-family', 'Inter, sans-serif').attr('fill', '#475569');
+      lines.forEach((l, i) => t.append('tspan').attr('x', 0).attr('dy', i === 0 ? d.r + 10 : '1.2em').text(l));
     });
 
-    requestAnimationFrame(animate);
+    sim.on('tick', () => {
+      linkEl.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+             .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      nodeG.attr('transform', d =>
+        `translate(${Math.max(d.r+6, Math.min(W-d.r-6, d.x))},${Math.max(d.r+6, Math.min(H-d.r-6, d.y))})`);
+    });
+    setTimeout(() => sim.alphaDecay(0.018), 2500);
   }
 
-  requestAnimationFrame(animate);
+  function load() {
+    if (typeof d3 !== 'undefined') { init(); return; }
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js';
+    s.onload = init;
+    document.head.appendChild(s);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', load);
+  else load();
 })();
 </script>
