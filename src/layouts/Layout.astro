@@ -24,99 +24,74 @@ const {
       rel="stylesheet"
     />
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <style>
+      body { background: #f0f7ff; }
+      /* Subtle dot grid background */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: radial-gradient(circle, #bfdbfe 1px, transparent 1px);
+        background-size: 32px 32px;
+        opacity: 0.35;
+        pointer-events: none;
+        z-index: 0;
+      }
+    </style>
   </head>
-  <body class="bg-[#020617] text-slate-100 font-sans antialiased overflow-x-hidden">
-    <!-- Global starfield background -->
+  <body class="bg-[#f0f7ff] text-slate-900 font-sans antialiased overflow-x-hidden">
+    <!-- Floating gradient orbs for depth -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden" style="z-index:0;">
+      <div class="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-blue-300/20 blur-[120px]"></div>
+      <div class="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-indigo-300/15 blur-[100px]"></div>
+      <div class="absolute top-1/2 right-0 w-72 h-72 rounded-full bg-sky-300/10 blur-[80px]"></div>
+    </div>
+
+    <!-- Canvas for meteors only (no constellation - better performance) -->
     <canvas id="starfield-global" class="fixed inset-0 w-full h-full pointer-events-none" style="z-index:0;"></canvas>
-    <!-- Content above starfield -->
+
+    <!-- Content -->
     <div class="relative" style="z-index:1;">
       <slot />
     </div>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js" is:inline></script>
     <script is:inline>
-      // Force reload when restored from bfcache so styles always load correctly
       window.addEventListener('pageshow', function(e) {
         if (e.persisted) window.location.reload();
       });
 
       AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60 });
 
-      // Global starfield + constellation + meteors
+      // Light-mode meteor shower (no heavy starfield/constellation)
       (function () {
         const canvas = document.getElementById('starfield-global');
         const ctx = canvas.getContext('2d');
-        let W, H, stars = [], meteors = [];
-        const CONN_DIST = 110;
+        let W, H, meteors = [];
 
         function resize() {
           W = canvas.width = window.innerWidth;
           H = canvas.height = window.innerHeight;
         }
 
-        function initStars() {
-          stars = [];
-          const count = Math.floor((W * H) / 3800);
-          for (let i = 0; i < count; i++) {
-            stars.push({
-              x: Math.random() * W,
-              y: Math.random() * H,
-              r: Math.random() * 1.2 + 0.15,
-              phase: Math.random() * Math.PI * 2,
-              speed: Math.random() * 0.006 + 0.002,
-              color: Math.random() > 0.8 ? '#bfdbfe' : (Math.random() > 0.5 ? '#e2e8f0' : '#93c5fd'),
-            });
-          }
-        }
-
         function spawnMeteor() {
           const fromTop = Math.random() > 0.3;
           meteors.push({
             x: fromTop ? Math.random() * W * 0.8 : W + 10,
-            y: fromTop ? -10 : Math.random() * H * 0.4,
+            y: fromTop ? -10 : Math.random() * H * 0.3,
             vx: -(4 + Math.random() * 6),
             vy:   3 + Math.random() * 5,
-            len: 80 + Math.random() * 140,
+            len: 60 + Math.random() * 100,
             life: 1,
-            decay: 0.012 + Math.random() * 0.016,
-            blue: Math.random() > 0.5,
+            decay: 0.014 + Math.random() * 0.018,
+            blue: Math.random() > 0.4,
           });
         }
 
-        let frame = 0;
         function draw() {
           ctx.clearRect(0, 0, W, H);
-          frame += 0.016;
 
-          // Stars
-          for (const s of stars) {
-            const a = 0.12 + 0.6 * (0.5 + 0.5 * Math.sin(frame * s.speed * 60 + s.phase));
-            ctx.globalAlpha = a;
-            ctx.fillStyle = s.color;
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            ctx.fill();
-          }
-
-          // Constellation lines
-          ctx.lineWidth = 0.5;
-          for (let i = 0; i < stars.length; i++) {
-            for (let j = i + 1; j < stars.length; j++) {
-              const dx = stars[i].x - stars[j].x;
-              const dy = stars[i].y - stars[j].y;
-              const d2 = dx * dx + dy * dy;
-              if (d2 < CONN_DIST * CONN_DIST) {
-                ctx.globalAlpha = (1 - Math.sqrt(d2) / CONN_DIST) * 0.13;
-                ctx.strokeStyle = '#93c5fd';
-                ctx.beginPath();
-                ctx.moveTo(stars[i].x, stars[i].y);
-                ctx.lineTo(stars[j].x, stars[j].y);
-                ctx.stroke();
-              }
-            }
-          }
-
-          // Meteors
           if (Math.random() < 0.018) spawnMeteor();
+
           for (let i = meteors.length - 1; i >= 0; i--) {
             const m = meteors[i];
             m.x += m.vx; m.y += m.vy; m.life -= m.decay;
@@ -126,9 +101,9 @@ const {
             const tx = m.x - m.vx * (m.len / spd);
             const ty = m.y - m.vy * (m.len / spd);
             const grad = ctx.createLinearGradient(m.x, m.y, tx, ty);
-            const rgb = m.blue ? '147,197,253' : '226,232,240';
-            grad.addColorStop(0, `rgba(255,255,255,${m.life.toFixed(2)})`);
-            grad.addColorStop(0.3, `rgba(${rgb},${(m.life * 0.55).toFixed(2)})`);
+            const rgb = m.blue ? '59,130,246' : '99,102,241';
+            grad.addColorStop(0, `rgba(${rgb},${(m.life * 0.7).toFixed(2)})`);
+            grad.addColorStop(0.4, `rgba(${rgb},${(m.life * 0.3).toFixed(2)})`);
             grad.addColorStop(1, 'rgba(0,0,0,0)');
 
             ctx.globalAlpha = 1;
@@ -140,8 +115,8 @@ const {
             ctx.lineTo(tx, ty);
             ctx.stroke();
 
-            ctx.globalAlpha = m.life * 0.9;
-            ctx.fillStyle = '#ffffff';
+            ctx.globalAlpha = m.life * 0.6;
+            ctx.fillStyle = m.blue ? '#3b82f6' : '#6366f1';
             ctx.beginPath();
             ctx.arc(m.x, m.y, 1.5 * m.life, 0, Math.PI * 2);
             ctx.fill();
@@ -151,11 +126,9 @@ const {
           requestAnimationFrame(draw);
         }
 
-        window.addEventListener('resize', () => { resize(); initStars(); });
+        window.addEventListener('resize', resize);
         resize();
-        initStars();
-        setTimeout(spawnMeteor, 400);
-        setTimeout(spawnMeteor, 900);
+        setTimeout(spawnMeteor, 600);
         setTimeout(spawnMeteor, 1800);
         setTimeout(spawnMeteor, 3200);
         draw();

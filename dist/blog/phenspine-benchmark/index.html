@@ -1,17 +1,17 @@
-<!DOCTYPE html><html lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="The motivation behind PhenSPINE - a standardized benchmark dataset for spine pathology diagnosis on MRI, presented at CITA 2026."><title>PhenSPINE: Why Spine AI Needs a Standardized Benchmark — Duong Ngoc Vu</title><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"><link rel="stylesheet" href="/NgocDuong.github.io/_astro/blog-_slug_-1.css">
+<!DOCTYPE html><html lang="en" class="scroll-smooth" data-astro-cid-sckkx6r4> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="The motivation behind PhenSPINE - a standardized benchmark dataset for spine pathology diagnosis on MRI, presented at CITA 2026."><title>PhenSPINE: Why Spine AI Needs a Standardized Benchmark — Duong Ngoc Vu</title><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔬</text></svg>"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"><link rel="stylesheet" href="/NgocDuong.github.io/_astro/blog-_slug_-1.css">
 <style>.prose-custom{color:#94a3b8;line-height:1.8}.prose-custom h2{color:#f1f5f9;font-size:1.25rem;font-weight:700;margin-top:2rem;margin-bottom:.75rem;padding-bottom:.5rem;border-bottom:1px solid #1e293b}.prose-custom h3{color:#e2e8f0;font-size:1.05rem;font-weight:600;margin-top:1.5rem;margin-bottom:.5rem}.prose-custom p{margin-bottom:1.2rem}.prose-custom a{color:#60a5fa;text-decoration:underline;text-underline-offset:3px}.prose-custom a:hover{color:#93c5fd}.prose-custom strong{color:#e2e8f0;font-weight:600}.prose-custom ul,.prose-custom ol{margin:.75rem 0 1rem 1.25rem;space-y:.4rem}.prose-custom li{margin-bottom:.35rem}.prose-custom code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:.15em .4em;font-size:.875em;color:#60a5fa;font-family:JetBrains Mono,monospace}.prose-custom pre{background:#0f172a;border:1px solid #1e293b;border-radius:10px;padding:1.25rem;overflow-x:auto;margin:1.25rem 0}.prose-custom pre code{background:none;border:none;padding:0;color:#94a3b8;font-size:.85rem}.prose-custom blockquote{border-left:3px solid #3b82f6;padding-left:1rem;margin:1.25rem 0;color:#64748b;font-style:italic}
-</style></head> <body class="bg-[#020617] text-slate-100 font-sans antialiased overflow-x-hidden"> <!-- Global starfield background --> <canvas id="starfield-global" class="fixed inset-0 w-full h-full pointer-events-none" style="z-index:0;"></canvas> <!-- Content above starfield --> <div class="relative" style="z-index:1;">  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"> <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between"> <a href="/NgocDuong.github.io/" class="flex items-center gap-3 group"> <img src="/NgocDuong.github.io/avatar.jpg" alt="Duong Ngoc Vu" class="w-9 h-9 rounded-lg object-cover object-top ring-1 ring-blue-500/40 group-hover:ring-blue-400/70 transition-all shadow-lg shadow-blue-500/20"> <span class="font-semibold text-slate-200 hidden sm:block group-hover:text-white transition-colors">
+</style></head> <body class="bg-[#f0f7ff] text-slate-900 font-sans antialiased overflow-x-hidden" data-astro-cid-sckkx6r4> <!-- Floating gradient orbs for depth --> <div class="fixed inset-0 pointer-events-none overflow-hidden" style="z-index:0;" data-astro-cid-sckkx6r4> <div class="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-blue-300/20 blur-[120px]" data-astro-cid-sckkx6r4></div> <div class="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-indigo-300/15 blur-[100px]" data-astro-cid-sckkx6r4></div> <div class="absolute top-1/2 right-0 w-72 h-72 rounded-full bg-sky-300/10 blur-[80px]" data-astro-cid-sckkx6r4></div> </div> <!-- Canvas for meteors only (no constellation - better performance) --> <canvas id="starfield-global" class="fixed inset-0 w-full h-full pointer-events-none" style="z-index:0;" data-astro-cid-sckkx6r4></canvas> <!-- Content --> <div class="relative" style="z-index:1;" data-astro-cid-sckkx6r4>  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"> <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between"> <a href="/NgocDuong.github.io/" class="flex items-center gap-3 group"> <img src="/NgocDuong.github.io/avatar.jpg" alt="Duong Ngoc Vu" class="w-9 h-9 rounded-lg object-cover object-top ring-1 ring-blue-400/50 group-hover:ring-blue-500/80 transition-all shadow-md shadow-blue-300/30"> <span class="font-semibold text-slate-700 hidden sm:block group-hover:text-blue-600 transition-colors">
 Duong Ngoc Vu
-</span> </a> <nav class="hidden md:flex items-center gap-1"> <a href="/NgocDuong.github.io/" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Home </a><a href="/NgocDuong.github.io/research" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Research </a><a href="/NgocDuong.github.io/experience" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Experience </a><a href="/NgocDuong.github.io/blog" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Blog </a><a href="/NgocDuong.github.io/contact" class="px-3 py-1.5 text-sm text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-md transition-all duration-200 font-medium"> Contact </a> </nav> <button id="menu-btn" class="md:hidden p-2 text-slate-400 hover:text-white"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div> <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800/60 bg-[#020617]/95 backdrop-blur-xl px-6 py-4"> <a href="/NgocDuong.github.io/" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Home </a><a href="/NgocDuong.github.io/research" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Research </a><a href="/NgocDuong.github.io/experience" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Experience </a><a href="/NgocDuong.github.io/blog" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Blog </a><a href="/NgocDuong.github.io/contact" class="mobile-link block py-2.5 text-sm text-slate-400 hover:text-blue-400 transition-colors border-b border-slate-800/40 last:border-0"> Contact </a> </div> </header> <script>
+</span> </a> <nav class="hidden md:flex items-center gap-1"> <a href="/NgocDuong.github.io/" class="px-3 py-1.5 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all duration-200 font-medium"> Home </a><a href="/NgocDuong.github.io/research" class="px-3 py-1.5 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all duration-200 font-medium"> Research </a><a href="/NgocDuong.github.io/experience" class="px-3 py-1.5 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all duration-200 font-medium"> Experience </a><a href="/NgocDuong.github.io/blog" class="px-3 py-1.5 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all duration-200 font-medium"> Blog </a><a href="/NgocDuong.github.io/contact" class="px-3 py-1.5 text-sm text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all duration-200 font-medium"> Contact </a> </nav> <button id="menu-btn" class="md:hidden p-2 text-slate-500 hover:text-blue-600"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </button> </div> <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-6 py-4"> <a href="/NgocDuong.github.io/" class="mobile-link block py-2.5 text-sm text-slate-600 hover:text-blue-600 transition-colors border-b border-slate-100 last:border-0"> Home </a><a href="/NgocDuong.github.io/research" class="mobile-link block py-2.5 text-sm text-slate-600 hover:text-blue-600 transition-colors border-b border-slate-100 last:border-0"> Research </a><a href="/NgocDuong.github.io/experience" class="mobile-link block py-2.5 text-sm text-slate-600 hover:text-blue-600 transition-colors border-b border-slate-100 last:border-0"> Experience </a><a href="/NgocDuong.github.io/blog" class="mobile-link block py-2.5 text-sm text-slate-600 hover:text-blue-600 transition-colors border-b border-slate-100 last:border-0"> Blog </a><a href="/NgocDuong.github.io/contact" class="mobile-link block py-2.5 text-sm text-slate-600 hover:text-blue-600 transition-colors border-b border-slate-100 last:border-0"> Contact </a> </div> </header> <script>
   const navbar = document.getElementById('navbar');
   const menuBtn = document.getElementById('menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
-      navbar.classList.add('bg-[#020617]/90', 'backdrop-blur-xl', 'border-b', 'border-slate-800/60', 'shadow-xl', 'shadow-black/20');
+      navbar.classList.add('bg-white/90', 'backdrop-blur-xl', 'border-b', 'border-slate-200', 'shadow-sm', 'shadow-slate-200/50');
     } else {
-      navbar.classList.remove('bg-[#020617]/90', 'backdrop-blur-xl', 'border-b', 'border-slate-800/60', 'shadow-xl', 'shadow-black/20');
+      navbar.classList.remove('bg-white/90', 'backdrop-blur-xl', 'border-b', 'border-slate-200', 'shadow-sm', 'shadow-slate-200/50');
     }
   });
 
@@ -46,95 +46,46 @@ All posts
 </ol>
 <h2 id="impact">Impact</h2>
 <p>Since presenting PhenSPINE at CITA 2026, we’ve had interest from several research groups who want to evaluate their methods on it. Standardized benchmarks are what move a research field forward - we’re excited to contribute one to spine AI.</p>
-<p>The dataset details are in the <a href="/publications">paper</a>.</p> </article> </div> </main> <footer class="border-t border-slate-800/60 py-8"> <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4"> <div class="flex items-center gap-3"> <div class="w-7 h-7 rounded-md bg-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-md shadow-blue-500/30">
-DV
-</div> <span class="text-slate-500 text-sm">Duong Ngoc Vu</span> </div> <p class="text-slate-600 text-sm">
+<p>The dataset details are in the <a href="/publications">paper</a>.</p> </article> </div> </main> <footer class="border-t border-slate-200 py-8 bg-white/60"> <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4"> <div class="flex items-center gap-3"> <img src="/NgocDuong.github.io/avatar.jpg" alt="Duong Ngoc Vu" class="w-7 h-7 rounded-md object-cover object-top ring-1 ring-blue-300/50"> <span class="text-slate-500 text-sm">Duong Ngoc Vu</span> </div> <p class="text-slate-400 text-sm">
 &copy; 2026 · Built with
 <span class="text-blue-500">Astro</span> &
-<span class="text-blue-500">Tailwind CSS</span> </p> <div class="flex items-center gap-4"> <a href="https://github.com/Duongvu05" target="_blank" class="text-slate-600 hover:text-blue-400 transition-colors text-sm">GitHub</a> <a href="https://www.linkedin.com/in/ngoc-duong-47a058292/" target="_blank" class="text-slate-600 hover:text-blue-400 transition-colors text-sm">LinkedIn</a> <a href="mailto:duongvn.bai@st.neu.edu.vn" class="text-slate-600 hover:text-blue-400 transition-colors text-sm">Email</a> </div> </div> </footer>  </div> <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script> <script>
-      // Force reload when restored from bfcache so styles always load correctly
+<span class="text-blue-500">Tailwind CSS</span> </p> <div class="flex items-center gap-4"> <a href="https://github.com/Duongvu05" target="_blank" class="text-slate-400 hover:text-blue-600 transition-colors text-sm">GitHub</a> <a href="https://www.linkedin.com/in/ngoc-duong-47a058292/" target="_blank" class="text-slate-400 hover:text-blue-600 transition-colors text-sm">LinkedIn</a> <a href="mailto:duongvn.bai@st.neu.edu.vn" class="text-slate-400 hover:text-blue-600 transition-colors text-sm">Email</a> </div> </div> </footer>  </div> <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script> <script>
       window.addEventListener('pageshow', function(e) {
         if (e.persisted) window.location.reload();
       });
 
       AOS.init({ duration: 650, easing: 'ease-out-cubic', once: true, offset: 60 });
 
-      // Global starfield + constellation + meteors
+      // Light-mode meteor shower (no heavy starfield/constellation)
       (function () {
         const canvas = document.getElementById('starfield-global');
         const ctx = canvas.getContext('2d');
-        let W, H, stars = [], meteors = [];
-        const CONN_DIST = 110;
+        let W, H, meteors = [];
 
         function resize() {
           W = canvas.width = window.innerWidth;
           H = canvas.height = window.innerHeight;
         }
 
-        function initStars() {
-          stars = [];
-          const count = Math.floor((W * H) / 3800);
-          for (let i = 0; i < count; i++) {
-            stars.push({
-              x: Math.random() * W,
-              y: Math.random() * H,
-              r: Math.random() * 1.2 + 0.15,
-              phase: Math.random() * Math.PI * 2,
-              speed: Math.random() * 0.006 + 0.002,
-              color: Math.random() > 0.8 ? '#bfdbfe' : (Math.random() > 0.5 ? '#e2e8f0' : '#93c5fd'),
-            });
-          }
-        }
-
         function spawnMeteor() {
           const fromTop = Math.random() > 0.3;
           meteors.push({
             x: fromTop ? Math.random() * W * 0.8 : W + 10,
-            y: fromTop ? -10 : Math.random() * H * 0.4,
+            y: fromTop ? -10 : Math.random() * H * 0.3,
             vx: -(4 + Math.random() * 6),
             vy:   3 + Math.random() * 5,
-            len: 80 + Math.random() * 140,
+            len: 60 + Math.random() * 100,
             life: 1,
-            decay: 0.012 + Math.random() * 0.016,
-            blue: Math.random() > 0.5,
+            decay: 0.014 + Math.random() * 0.018,
+            blue: Math.random() > 0.4,
           });
         }
 
-        let frame = 0;
         function draw() {
           ctx.clearRect(0, 0, W, H);
-          frame += 0.016;
 
-          // Stars
-          for (const s of stars) {
-            const a = 0.12 + 0.6 * (0.5 + 0.5 * Math.sin(frame * s.speed * 60 + s.phase));
-            ctx.globalAlpha = a;
-            ctx.fillStyle = s.color;
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            ctx.fill();
-          }
-
-          // Constellation lines
-          ctx.lineWidth = 0.5;
-          for (let i = 0; i < stars.length; i++) {
-            for (let j = i + 1; j < stars.length; j++) {
-              const dx = stars[i].x - stars[j].x;
-              const dy = stars[i].y - stars[j].y;
-              const d2 = dx * dx + dy * dy;
-              if (d2 < CONN_DIST * CONN_DIST) {
-                ctx.globalAlpha = (1 - Math.sqrt(d2) / CONN_DIST) * 0.13;
-                ctx.strokeStyle = '#93c5fd';
-                ctx.beginPath();
-                ctx.moveTo(stars[i].x, stars[i].y);
-                ctx.lineTo(stars[j].x, stars[j].y);
-                ctx.stroke();
-              }
-            }
-          }
-
-          // Meteors
           if (Math.random() < 0.018) spawnMeteor();
+
           for (let i = meteors.length - 1; i >= 0; i--) {
             const m = meteors[i];
             m.x += m.vx; m.y += m.vy; m.life -= m.decay;
@@ -144,9 +95,9 @@ DV
             const tx = m.x - m.vx * (m.len / spd);
             const ty = m.y - m.vy * (m.len / spd);
             const grad = ctx.createLinearGradient(m.x, m.y, tx, ty);
-            const rgb = m.blue ? '147,197,253' : '226,232,240';
-            grad.addColorStop(0, `rgba(255,255,255,${m.life.toFixed(2)})`);
-            grad.addColorStop(0.3, `rgba(${rgb},${(m.life * 0.55).toFixed(2)})`);
+            const rgb = m.blue ? '59,130,246' : '99,102,241';
+            grad.addColorStop(0, `rgba(${rgb},${(m.life * 0.7).toFixed(2)})`);
+            grad.addColorStop(0.4, `rgba(${rgb},${(m.life * 0.3).toFixed(2)})`);
             grad.addColorStop(1, 'rgba(0,0,0,0)');
 
             ctx.globalAlpha = 1;
@@ -158,8 +109,8 @@ DV
             ctx.lineTo(tx, ty);
             ctx.stroke();
 
-            ctx.globalAlpha = m.life * 0.9;
-            ctx.fillStyle = '#ffffff';
+            ctx.globalAlpha = m.life * 0.6;
+            ctx.fillStyle = m.blue ? '#3b82f6' : '#6366f1';
             ctx.beginPath();
             ctx.arc(m.x, m.y, 1.5 * m.life, 0, Math.PI * 2);
             ctx.fill();
@@ -169,11 +120,9 @@ DV
           requestAnimationFrame(draw);
         }
 
-        window.addEventListener('resize', () => { resize(); initStars(); });
+        window.addEventListener('resize', resize);
         resize();
-        initStars();
-        setTimeout(spawnMeteor, 400);
-        setTimeout(spawnMeteor, 900);
+        setTimeout(spawnMeteor, 600);
         setTimeout(spawnMeteor, 1800);
         setTimeout(spawnMeteor, 3200);
         draw();
