@@ -45,7 +45,7 @@ const links = [
     </button>
   </div>
 
-  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-6 py-4">
+  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-blue-50/98 backdrop-blur-xl px-6 py-4">
     {
       links.map((l) => (
         <a
@@ -66,9 +66,9 @@ const links = [
 
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
-      navbar.classList.add('bg-white/90', 'backdrop-blur-xl', 'border-b', 'border-slate-200', 'shadow-sm', 'shadow-slate-200/50');
+      navbar.classList.add('bg-blue-50/95', 'backdrop-blur-xl', 'border-b', 'border-slate-200', 'shadow-sm', 'shadow-slate-200/50');
     } else {
-      navbar.classList.remove('bg-white/90', 'backdrop-blur-xl', 'border-b', 'border-slate-200', 'shadow-sm', 'shadow-slate-200/50');
+      navbar.classList.remove('bg-blue-50/95', 'backdrop-blur-xl', 'border-b', 'border-slate-200', 'shadow-sm', 'shadow-slate-200/50');
     }
   });
 

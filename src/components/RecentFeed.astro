@@ -17,23 +17,23 @@ const topics = [
 ];
 
 const tagColorMap: Record<string, string> = {
-  'Research': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  'Medical Imaging': 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
-  'Healthcare': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  'Benchmark': 'bg-violet-500/10 text-violet-400 border-violet-500/20',
-  'AI': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-  'Competition': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+  'Research': 'bg-blue-500/10 text-blue-700 border-blue-300',
+  'Medical Imaging': 'bg-indigo-500/10 text-indigo-700 border-indigo-300',
+  'Healthcare': 'bg-blue-500/10 text-blue-700 border-blue-300',
+  'Benchmark': 'bg-violet-500/10 text-violet-700 border-violet-300',
+  'AI': 'bg-blue-500/10 text-blue-700 border-blue-300',
+  'Competition': 'bg-amber-500/10 text-amber-700 border-amber-300',
 };
 const defaultTag = 'bg-slate-100 text-slate-500 border-slate-200';
 ---
 
 <section class="py-24 relative">
-  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-700/60 to-transparent"></div>
+  <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-300/40 to-transparent"></div>
 
   <div class="max-w-6xl mx-auto px-6">
 
     <div class="mb-12" data-aos="fade-up">
-      <p class="text-blue-400 font-mono text-sm font-medium mb-2">// recent</p>
+      <p class="text-blue-700 font-mono text-sm font-medium mb-2">// recent</p>
       <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Recent Updates</h2>
     </div>
 
@@ -65,7 +65,7 @@ const defaultTag = 'bg-slate-100 text-slate-500 border-slate-200';
                 {post.data.title}
               </h3>
               <p class="text-sm text-slate-500 line-clamp-2 leading-relaxed">{post.data.description}</p>
-              <div class="flex items-center gap-1.5 mt-3 text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity font-medium">
+              <div class="flex items-center gap-1.5 mt-3 text-xs text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity font-medium">
                 Read more
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -88,15 +88,15 @@ const defaultTag = 'bg-slate-100 text-slate-500 border-slate-200';
 
       <!-- Right: topics -->
       <div class="space-y-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+        <div class="bg-white/90 border border-slate-200 rounded-2xl p-5">
           <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Research Topics</h3>
           <div class="flex flex-wrap gap-2">
             {topics.map(t => (
               <a href={`${base}/research`}
                 class={`text-sm px-3 py-1.5 rounded-lg border font-medium transition-all duration-200 hover:-translate-y-0.5 ${
-                  t.color === 'blue' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:bg-blue-500/20' :
-                  t.color === 'indigo' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20 hover:bg-indigo-500/20' :
-                  'bg-violet-500/10 text-violet-400 border-violet-500/20 hover:bg-violet-500/20'
+                  t.color === 'blue' ? 'bg-blue-500/10 text-blue-700 border-blue-300 hover:bg-blue-500/20' :
+                  t.color === 'indigo' ? 'bg-indigo-500/10 text-indigo-700 border-indigo-300 hover:bg-indigo-500/20' :
+                  'bg-violet-500/10 text-violet-700 border-violet-300 hover:bg-violet-500/20'
                 }`}>
                 {t.label}
               </a>
@@ -105,7 +105,7 @@ const defaultTag = 'bg-slate-100 text-slate-500 border-slate-200';
         </div>
 
         <!-- Quick links -->
-        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+        <div class="bg-white/90 border border-slate-200 rounded-2xl p-5">
           <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Quick Links</h3>
           <div class="space-y-2.5">
             {[
