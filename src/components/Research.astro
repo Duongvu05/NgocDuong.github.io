@@ -9,7 +9,7 @@
     <div class="mb-10" data-aos="fade-up">
       <p class="text-blue-700 font-mono text-sm font-medium mb-2">// 02. research</p>
       <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">Research Focus</h2>
-      <p class="text-slate-400 mt-3 max-w-xl">Building AI systems that solve real-world problems in healthcare and financial security.</p>
+      <p class="text-slate-600 mt-3 max-w-xl">Building AI systems that solve real-world problems in healthcare and financial security.</p>
     </div>
 
     <!-- Graph + Info panel -->
@@ -17,7 +17,7 @@
 
       <!-- D3 Graph -->
       <div class="w-full lg:w-3/5 xl:w-2/3">
-        <div id="research-focus-graph" class="w-full rounded-2xl border border-slate-200 bg-[#060f1e]/80" style="height:420px;"></div>
+        <div id="research-focus-graph" class="w-full rounded-2xl border border-blue-200 bg-white/70" style="height:420px;"></div>
         <p class="text-center text-xs text-slate-600 mt-2 font-mono">click a node to explore · drag to rearrange</p>
       </div>
 
@@ -125,7 +125,7 @@
     // Links
     const linkEls = svg.append('g').selectAll('line').data(links).join('line')
       .attr('stroke', d => {
-        if (d.dashed) return '#334155';
+        if (d.dashed) return '#94a3b8';
         const src = nodes.find(n => n.id === (d.source.id || d.source));
         return src && src.color ? src.color + '60' : '#3b82f660';
       })
@@ -162,8 +162,8 @@
     // Main circle
     nodeG.append('circle')
       .attr('r', d => d.r)
-      .attr('fill', d => d.type === 'root' ? '#1e3a5f' : '#0a1628')
-      .attr('stroke', d => d.type === 'root' ? '#93c5fd' : d.color || '#3b82f6')
+      .attr('fill', d => d.type === 'root' ? '#dbeafe' : '#f0f7ff')
+      .attr('stroke', d => d.type === 'root' ? '#2563eb' : d.color || '#3b82f6')
       .attr('stroke-width', d => d.type === 'root' ? 2.5 : 1.5)
       .attr('filter', 'url(#rfglow)');
 
@@ -172,7 +172,7 @@
       .attr('text-anchor', 'middle').attr('dominant-baseline', 'central')
       .attr('font-size', d => d.type === 'root' ? '10px' : d.type === 'area' ? '9px' : '6.5px')
       .attr('font-family', 'JetBrains Mono, monospace').attr('font-weight', '700')
-      .attr('fill', d => d.type === 'root' ? '#bfdbfe' : d.color || '#93c5fd')
+      .attr('fill', d => d.type === 'root' ? '#1d4ed8' : d.color || '#3b82f6')
       .text(d => d.abbr);
 
     // Label below
@@ -184,7 +184,7 @@
         .attr('text-anchor', 'middle')
         .attr('font-size', d.type === 'tag' ? '5.5px' : '7px')
         .attr('font-family', 'Inter, sans-serif').attr('font-weight', '500')
-        .attr('fill', d.type === 'root' ? '#94a3b8' : '#64748b');
+        .attr('fill', d.type === 'root' ? '#475569' : '#64748b');
       lines.forEach((line, i) => {
         t.append('tspan').attr('x', 0).attr('dy', i === 0 ? yOff : '1.2em').text(line);
       });
@@ -208,7 +208,7 @@
           <h3 class="text-slate-900 font-bold text-base leading-tight">${d.label}</h3>
         </div>
         <div class="mb-3">${tagHtml}</div>
-        <p class="text-slate-400 text-sm leading-relaxed">${d.desc}</p>
+        <p class="text-slate-600 text-sm leading-relaxed">${d.desc}</p>
       `;
     });
 
